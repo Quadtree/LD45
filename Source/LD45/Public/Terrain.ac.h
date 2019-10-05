@@ -22,3 +22,4 @@ void ATerrain::SetTileHeight(int32 value){ TileHeight = value; }
 #include "Components/InstancedStaticMeshComponent.h"
 #include "Public/Terrain.h"
 #include "UObject/NoExportTypes.h"
+#include "Math/UnrealMathUtility.h"
