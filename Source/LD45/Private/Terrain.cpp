@@ -68,7 +68,7 @@ void fun::BeginPlay()
 					TileWidth - x
 				));
 
-				if (distToSide < 5) {
+				if (distToSide < 20) {
 					if (height > distToSide) {
 						++tooHighEdgeTiles;
 						SetTileHeightAt(x, y, distToSide);
