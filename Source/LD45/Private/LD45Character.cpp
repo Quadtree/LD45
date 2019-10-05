@@ -26,6 +26,10 @@ prop(AConstructible* HeldConstructible)
 prop(TSubclassOf<AConstructible> ConstructibleType)
 prop(float ConstructionCost)
 
+prop(float Food)
+prop(float Temperature)
+prop(float Health)
+
 DEFINE_LOG_CATEGORY_STATIC(LogFPChar, Warning, All);
 
 //////////////////////////////////////////////////////////////////////////
@@ -416,4 +420,10 @@ void fun::CancelConstruction()
 
 	if (!Resources.Contains(EResourceType::RT_Wood)) Resources.Add(EResourceType::RT_Wood, 0);
 	Resources[EResourceType::RT_Wood] += ConstructionCost;
+}
+
+float fun::GetAmountOfResource(EResourceType resourceType)
+{
+	if (Resources.Contains(resourceType)) return Resources[resourceType];
+	return 0;
 }

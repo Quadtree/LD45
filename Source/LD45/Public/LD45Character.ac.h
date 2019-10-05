@@ -49,6 +49,12 @@ TSubclassOf<AConstructible> ALD45Character::GetConstructibleType(){ return Const
 void ALD45Character::SetConstructibleType(TSubclassOf<AConstructible> value){ ConstructibleType = value; }
 float ALD45Character::GetConstructionCost(){ return ConstructionCost; }
 void ALD45Character::SetConstructionCost(float value){ ConstructionCost = value; }
+float ALD45Character::GetFood(){ return Food; }
+void ALD45Character::SetFood(float value){ Food = value; }
+float ALD45Character::GetTemperature(){ return Temperature; }
+void ALD45Character::SetTemperature(float value){ Temperature = value; }
+float ALD45Character::GetHealth(){ return Health; }
+void ALD45Character::SetHealth(float value){ Health = value; }
 
 #include "LD45.h"
 #include "GameFramework/Character.h"

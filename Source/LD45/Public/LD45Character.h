@@ -72,6 +72,15 @@ private:
 	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetConstructionCost, BlueprintSetter=SetConstructionCost)
 	float ConstructionCost;
 
+	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetFood, BlueprintSetter=SetFood)
+	float Food;
+
+	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetTemperature, BlueprintSetter=SetTemperature)
+	float Temperature;
+
+	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetHealth, BlueprintSetter=SetHealth)
+	float Health;
+
 public:
 	ALD45Character();
 
@@ -128,6 +137,9 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void CancelConstruction();
+
+	UFUNCTION(BlueprintPure)
+	float GetAmountOfResource(EResourceType resourceType);
 
 	UFUNCTION(BlueprintGetter, BlueprintPure)
 	float GetBaseTurnRate();
@@ -242,5 +254,23 @@ public:
 
 	UFUNCTION(BlueprintSetter, BlueprintCallable)
 	void SetConstructionCost(float value);
+
+	UFUNCTION(BlueprintGetter, BlueprintPure)
+	float GetFood();
+
+	UFUNCTION(BlueprintSetter, BlueprintCallable)
+	void SetFood(float value);
+
+	UFUNCTION(BlueprintGetter, BlueprintPure)
+	float GetTemperature();
+
+	UFUNCTION(BlueprintSetter, BlueprintCallable)
+	void SetTemperature(float value);
+
+	UFUNCTION(BlueprintGetter, BlueprintPure)
+	float GetHealth();
+
+	UFUNCTION(BlueprintSetter, BlueprintCallable)
+	void SetHealth(float value);
 
 };
