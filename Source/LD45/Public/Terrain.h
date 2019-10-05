@@ -2,6 +2,7 @@
 
 #include "EngineMinimal.h"
 #include "GameFramework/Actor.h"
+#include "LD45.h"
 #include "Terrain.generated.h"
 
 UCLASS()

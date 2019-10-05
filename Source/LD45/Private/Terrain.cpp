@@ -17,35 +17,75 @@ fun::ATerrain()
 
 void fun::BeginPlay()
 {
-	for (int32 x = 0; x < TileWidth; ++x)
+	for (int32 buildAttempt = 0; buildAttempt < 1000; ++buildAttempt)
 	{
-		HeightMap.Add(TArray<float>());
-		for (int32 y = 0; y < TileHeight; ++y)
+		HeightMap.Empty();
+		for (int32 x = 0; x < TileWidth; ++x)
 		{
-			HeightMap[x].Add(0);
+			HeightMap.Add(TArray<float>());
+			for (int32 y = 0; y < TileHeight; ++y)
+			{
+				HeightMap[x].Add(0);
+			}
 		}
-	}
 
-	for (int32 squareSize = TileWidth - 1; squareSize > 1; squareSize /= 2)
-	{
-		for (int32 x = 0; x < TileWidth; x += squareSize)
+		for (int32 squareSize = TileWidth - 1; squareSize > 1; squareSize /= 2)
 		{
-			for (int32 y = 0; y < TileHeight; y += squareSize)
+			for (int32 x = 0; x < TileWidth; x += squareSize)
 			{
-				SquareStep(x, y, x + squareSize, y + squareSize);
+				for (int32 y = 0; y < TileHeight; y += squareSize)
+				{
+					SquareStep(x, y, x + squareSize, y + squareSize);
+				}
+			}
+			for (int32 x = 0; x < TileWidth; x += squareSize)
+			{
+				for (int32 y = 0; y < TileHeight; y += squareSize)
+				{
+					DiamondStep(x - squareSize / 2, y, x - squareSize / 2 + squareSize, y + squareSize);
+					DiamondStep(x + squareSize / 2, y, x + squareSize / 2 + squareSize, y + squareSize);
+					DiamondStep(x, y - squareSize / 2, x + squareSize, y - squareSize / 2 + squareSize);
+					DiamondStep(x, y + squareSize / 2, x + squareSize, y + squareSize / 2 + squareSize);
+				}
 			}
 		}
-		for (int32 x = 0; x < TileWidth; x += squareSize)
+
+		int32 aboveWaterTiles = 0;
+		int32 totalTiles = TileWidth * TileHeight;
+		int32 tooHighEdgeTiles = 0;
+
+		for (int32 x = 0; x < TileWidth; ++x)
 		{
-			for (int32 y = 0; y < TileHeight; y += squareSize)
+			for (int32 y = 0; y < TileHeight; ++y)
 			{
-				DiamondStep(x - squareSize / 2, y,					x - squareSize / 2 + squareSize,	y + squareSize);
-				DiamondStep(x + squareSize / 2, y,					x + squareSize / 2 + squareSize,	y + squareSize);
-				DiamondStep(x,					y - squareSize / 2, x + squareSize,						y - squareSize / 2 + squareSize);
-				DiamondStep(x,					y + squareSize / 2, x + squareSize,						y + squareSize / 2 + squareSize);
+				float height = HeightMap[x][y];
+
+				int32 distToSide = FMath::Min(
+					TileHeight - y,
+					FMath::Min3(
+					x,
+					y,
+					TileWidth - x
+				));
+
+				if (distToSide < 5) {
+					if (height > distToSide) {
+						++tooHighEdgeTiles;
+						SetTileHeightAt(x, y, distToSide);
+					}
+				}
+
+				if (height >= 0) {
+					++aboveWaterTiles;
+				}
 			}
 		}
+
+		UE_LOG(LogTemp, Display, TEXT("aboveWaterTiles=%s totalTiles=%s tooHighEdgeTiles=%s"), *FString::FromInt(aboveWaterTiles), *FString::FromInt(totalTiles), *FString::FromInt(tooHighEdgeTiles));
+
+		if (aboveWaterTiles >= totalTiles / 2 && tooHighEdgeTiles < 200) break;
 	}
+	
 
 	for (int32 x = 0; x < TileWidth; ++x)
 	{
@@ -68,7 +108,7 @@ void fun::SetTileHeightAt(int32 x, int32 y, float height)
 {
 	if (x < 0 || y < 0 || x >= TileWidth || y >= TileHeight) return;
 
-	int32 distToSide = FMath::Min(
+	/*int32 distToSide = FMath::Min(
 		TileHeight - y,
 		FMath::Min3(
 		x,
@@ -80,7 +120,7 @@ void fun::SetTileHeightAt(int32 x, int32 y, float height)
 		while (height > distToSide) {
 			height -= FMath::FRandRange(0, 5);
 		}
-	}
+	}*/
 
 	HeightMap[x][y] = height;
 }

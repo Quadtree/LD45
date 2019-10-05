@@ -18,8 +18,10 @@ void ATerrain::SetTileWidth(int32 value){ TileWidth = value; }
 int32 ATerrain::GetTileHeight(){ return TileHeight; }
 void ATerrain::SetTileHeight(int32 value){ TileHeight = value; }
 
+#include "LD45.h"
 #include "GameFramework/Actor.h"
 #include "Components/InstancedStaticMeshComponent.h"
 #include "Public/Terrain.h"
-#include "UObject/NoExportTypes.h"
 #include "Math/UnrealMathUtility.h"
+#include "Containers/UnrealString.h"
+#include "UObject/NoExportTypes.h"
