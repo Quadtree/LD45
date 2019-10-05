@@ -92,7 +92,9 @@ void fun::BeginPlay()
 					}
 					while (height > distToSide) {
 						height = HeightMap[x][y];
-						SetTileHeightAt(x + FMath::RandRange(-3, 3), y + FMath::RandRange(-3, 3), FMath::FRandRange(0, 0.4f));
+						int32 cx = x + FMath::RandRange(-7, 7);
+						int32 cy = y + FMath::RandRange(-7, 7);
+						SetTileHeightAt(cx, cy, GetTileHeightAt(cx,cy) - FMath::FRandRange(0, 0.8f));
 					}
 				//}
 
@@ -112,15 +114,18 @@ void fun::BeginPlay()
 	{
 		for (int32 y = 0; y < TileHeight; ++y)
 		{
-			FTransform trans;
+			if (GetTileHeightAt(x, y) > 0)
+			{
+				FTransform trans;
 
-			trans.SetComponents(
-				FQuat::Identity,
-				FVector(x * TileSize, y * TileSize, GetTileHeightAt(x,y)* HeightMultiplier),
-				FVector(1 * TileSize/100, 1 * TileSize/100, 50)
-			);
+				trans.SetComponents(
+					FQuat::Identity,
+					FVector(x * TileSize, y * TileSize, GetTileHeightAt(x, y) * HeightMultiplier),
+					FVector(1 * TileSize / 100, 1 * TileSize / 100, 50)
+				);
 
-			TerrainCubes->AddInstance(trans);
+				TerrainCubes->AddInstance(trans);
+			}
 		}
 	}
 }
