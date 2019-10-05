@@ -15,7 +15,7 @@ prop(float TileSize)
 prop(bare private TArray<TArray<float>> Jaggedness)
 
 prop(TSubclassOf<AActor> TreeActorType)
-prop(TSubclassOf<AActor> BushActorType)
+prop(TSubclassOf<ABush> BushActorType)
 
 prop(int32 Trees)
 prop(int32 Bushes)
@@ -161,6 +161,32 @@ void fun::BeginPlay()
 			{
 				GetWorld()->SpawnActor<AActor>(TreeActorType, res.ImpactPoint, FRotator::ZeroRotator);
 				--Trees;
+			}
+		}
+	}
+
+	for (int32 i = 0; i < 1000000 && Bushes > 0; ++i)
+	{
+		FVector pos = FVector(FMath::FRandRange(0, TileWidth * TileSize), FMath::FRandRange(0, TileWidth * TileSize), 10000);
+
+		FHitResult res;
+
+		if (GetWorld()->LineTraceSingleByObjectType(res, pos, pos - FVector(0, 0, 50000), FCollisionObjectQueryParams::AllObjects, FCollisionQueryParams()))
+		{
+			if (res.Actor == this && res.ImpactPoint.Z <= TreeLine)
+			{
+				if (auto bush = GetWorld()->SpawnActor<ABush>(BushActorType, res.ImpactPoint, FRotator::ZeroRotator))
+				{
+					switch (FMath::RandRange(0, 2))
+					{
+					case 0: bush->SetBerryType(EResourceType::RT_RedBerries); break;
+					case 1: bush->SetBerryType(EResourceType::RT_GreenBerries); break;
+					case 2: bush->SetBerryType(EResourceType::RT_BlueBerries); break;
+					}
+					bush->BerryColorChanged();
+					
+					--Bushes;
+				}
 			}
 		}
 	}

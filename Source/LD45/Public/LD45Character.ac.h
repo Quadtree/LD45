@@ -70,4 +70,5 @@ void ALD45Character::SetIsInteracting(bool value){ IsInteracting = value; }
 #include "GameFramework/InputSettings.h"
 #include "Engine/EngineBaseTypes.h"
 #include "Public/Tree.h"
+#include "Public/Bush.h"
 #include "Containers/UnrealString.h"

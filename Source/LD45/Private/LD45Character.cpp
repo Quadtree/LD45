@@ -339,6 +339,11 @@ void fun::Interact(float deltaTime)
 		{
 			GainResources(a->Harvest(10 * deltaTime));
 		}
+		else if (auto a = Cast<ABush>(res.Actor))
+		{
+			GainResources(a->Harvest(10 * deltaTime));
+		}
+
 	}
 }
 

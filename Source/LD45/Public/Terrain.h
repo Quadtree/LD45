@@ -3,6 +3,7 @@
 #include "EngineMinimal.h"
 #include "GameFramework/Actor.h"
 #include "LD45.h"
+#include "Public/ResourceType.h"
 #include "Terrain.generated.h"
 
 UCLASS()
@@ -33,7 +34,7 @@ private:
 	TSubclassOf<AActor> TreeActorType;
 
 	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetBushActorType, BlueprintSetter=SetBushActorType)
-	TSubclassOf<AActor> BushActorType;
+	TSubclassOf<ABush> BushActorType;
 
 	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetTrees, BlueprintSetter=SetTrees)
 	int32 Trees;
@@ -102,10 +103,10 @@ public:
 	void SetTreeActorType(TSubclassOf<AActor> value);
 
 	UFUNCTION(BlueprintGetter, BlueprintPure)
-	TSubclassOf<AActor>  GetBushActorType();
+	TSubclassOf<ABush>  GetBushActorType();
 
 	UFUNCTION(BlueprintSetter, BlueprintCallable)
-	void SetBushActorType(TSubclassOf<AActor> value);
+	void SetBushActorType(TSubclassOf<ABush> value);
 
 	UFUNCTION(BlueprintGetter, BlueprintPure)
 	int32 GetTrees();

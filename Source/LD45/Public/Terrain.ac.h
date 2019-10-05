@@ -23,8 +23,8 @@ float ATerrain::GetTileSize(){ return TileSize; }
 void ATerrain::SetTileSize(float value){ TileSize = value; }
 TSubclassOf<AActor> ATerrain::GetTreeActorType(){ return TreeActorType; }
 void ATerrain::SetTreeActorType(TSubclassOf<AActor> value){ TreeActorType = value; }
-TSubclassOf<AActor> ATerrain::GetBushActorType(){ return BushActorType; }
-void ATerrain::SetBushActorType(TSubclassOf<AActor> value){ BushActorType = value; }
+TSubclassOf<ABush> ATerrain::GetBushActorType(){ return BushActorType; }
+void ATerrain::SetBushActorType(TSubclassOf<ABush> value){ BushActorType = value; }
 int32 ATerrain::GetTrees(){ return Trees; }
 void ATerrain::SetTrees(int32 value){ Trees = value; }
 int32 ATerrain::GetBushes(){ return Bushes; }
@@ -36,6 +36,7 @@ void ATerrain::SetTreeLine(float value){ TreeLine = value; }
 #include "GameFramework/Actor.h"
 #include "Components/InstancedStaticMeshComponent.h"
 #include "Templates/SubclassOf.h"
+#include "Public/Bush.h"
 #include "Public/Terrain.h"
 #include "Math/UnrealMathUtility.h"
 #include "Containers/UnrealString.h"
@@ -44,3 +45,4 @@ void ATerrain::SetTreeLine(float value){ TreeLine = value; }
 #include "Public/LD45Character.h"
 #include "Engine/EngineTypes.h"
 #include "CollisionQueryParams.h"
+#include "Public/ResourceType.h"
