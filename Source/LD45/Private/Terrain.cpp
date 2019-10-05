@@ -74,9 +74,9 @@ void fun::BeginPlay()
 						SetTileHeightAt(x, y, distToSide);
 					}
 					while (height > distToSide) {
-						height -= FMath::FRandRange(0, 0.5f);
+						height = HeightMap[x][y];
+						SetTileHeightAt(x + FMath::RandRange(-3, 3), y + FMath::RandRange(-3, 3), FMath::FRandRange(0, 0.4f));
 					}
-					SetTileHeightAt(x, y, height);
 				}
 
 				if (height >= 0) {
