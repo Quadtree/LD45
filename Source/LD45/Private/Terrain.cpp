@@ -12,6 +12,8 @@ prop(bare private TArray<TArray<float>> HeightMap)
 prop(float HeightMultiplier)
 prop(float TileSize)
 
+prop(bare private TArray<TArray<float>> Jaggedness)
+
 fun::ATerrain()
 {
 	TerrainCubes = CreateDefaultSubobject<UInstancedStaticMeshComponent>("Cubes");
@@ -24,6 +26,16 @@ void fun::BeginPlay()
 {
 	for (int32 buildAttempt = 0; buildAttempt < 1000; ++buildAttempt)
 	{
+		Jaggedness.Empty();
+		for (int32 x = 0; x < 8; ++x)
+		{
+			Jaggedness.Add(TArray<float>());
+			for (int32 y = 0; y < 8; ++y)
+			{
+				Jaggedness[x].Add(FMath::Square(FMath::FRandRange(0, 5)) / FMath::Square(2));
+			}
+		}
+
 		HeightMap.Empty();
 		for (int32 x = 0; x < TileWidth; ++x)
 		{
@@ -73,7 +85,7 @@ void fun::BeginPlay()
 					TileWidth - x
 				));
 
-				if (distToSide < 20) {
+				//if (distToSide < 20) {
 					if (height > distToSide) {
 						++tooHighEdgeTiles;
 						SetTileHeightAt(x, y, distToSide);
@@ -82,7 +94,7 @@ void fun::BeginPlay()
 						height = HeightMap[x][y];
 						SetTileHeightAt(x + FMath::RandRange(-3, 3), y + FMath::RandRange(-3, 3), FMath::FRandRange(0, 0.4f));
 					}
-				}
+				//}
 
 				if (height >= 0) {
 					++aboveWaterTiles;
@@ -141,6 +153,16 @@ float fun::GetTileHeightAt(int32 x, int32 y)
 	return HeightMap[x][y];
 }
 
+float fun::GetJaggednessAt(int32 x, int32 y)
+{
+	x = x * 8 / TileWidth;
+	y = y * 8 / TileHeight;
+	x = FMath::Clamp(x, 0, 7);
+	y = FMath::Clamp(y, 0, 7);
+
+	return Jaggedness[x][y];
+}
+
 void fun::SquareStep(int32 x1, int32 y1, int32 x2, int32 y2)
 {
 	int32 squareSize = x2 - x1;
@@ -153,7 +175,7 @@ void fun::SquareStep(int32 x1, int32 y1, int32 x2, int32 y2)
 
 	centerHeight /= 4;
 
-	centerHeight += FMath::FRandRange(-0.5f * squareSize, 0.5f * squareSize);
+	centerHeight += FMath::FRandRange(-0.5f * squareSize, 0.5f * squareSize) * GetJaggednessAt((x1 + x2) / 2, (y1 + y2) / 2);
 
 	SetTileHeightAt((x1 + x2) / 2, (y1 + y2) / 2, centerHeight);
 }
@@ -170,7 +192,7 @@ void fun::DiamondStep(int32 x1, int32 y1, int32 x2, int32 y2)
 
 	centerHeight /= 4;
 
-	centerHeight += FMath::FRandRange(-0.5f * squareSize, 0.5f * squareSize);
+	centerHeight += FMath::FRandRange(-0.5f * squareSize, 0.5f * squareSize) * GetJaggednessAt((x1 + x2) / 2, (y1 + y2) / 2);
 
 	SetTileHeightAt((x1 + x2) / 2, (y1 + y2) / 2, centerHeight);
 }
