@@ -22,10 +22,6 @@ If nothing on the island is on fire, a random flammable object will be struck by
 If you have a fire burning at the highest point, and a plane is flying by, you are rescued and win.
 
 # Task List
-- Add in trees
-- Add in bushes
-- Allow chopping of trees
-- Allow collection of berries
 - Construction of walls
 - Construction of ceilings
 - Heat
@@ -34,3 +30,9 @@ If you have a fire burning at the highest point, and a plane is flying by, you a
 - Final graphics
 - Sound effects
 - Music
+
+# Complete Task List
+- Add in trees
+- Add in bushes
+- Allow chopping of trees
+- Allow collection of berries
