@@ -57,6 +57,10 @@ float ALD45Character::GetHealth(){ return Health; }
 void ALD45Character::SetHealth(float value){ Health = value; }
 TArray<EResourceType> ALD45Character::GetResourcesBeingEaten(){ return ResourcesBeingEaten; }
 void ALD45Character::SetResourcesBeingEaten(TArray<EResourceType> value){ ResourcesBeingEaten = value; }
+float ALD45Character::GetFoodConsumptionRate(){ return FoodConsumptionRate; }
+void ALD45Character::SetFoodConsumptionRate(float value){ FoodConsumptionRate = value; }
+float ALD45Character::GetFoodDamageRate(){ return FoodDamageRate; }
+void ALD45Character::SetFoodDamageRate(float value){ FoodDamageRate = value; }
 
 #include "LD45.h"
 #include "GameFramework/Character.h"

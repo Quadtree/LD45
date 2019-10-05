@@ -84,6 +84,12 @@ private:
 	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetResourcesBeingEaten, BlueprintSetter=SetResourcesBeingEaten)
 	TArray<EResourceType> ResourcesBeingEaten;
 
+	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetFoodConsumptionRate, BlueprintSetter=SetFoodConsumptionRate)
+	float FoodConsumptionRate;
+
+	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetFoodDamageRate, BlueprintSetter=SetFoodDamageRate)
+	float FoodDamageRate;
+
 public:
 	ALD45Character();
 
@@ -293,5 +299,17 @@ public:
 
 	UFUNCTION(BlueprintSetter, BlueprintCallable)
 	void SetResourcesBeingEaten(TArray<EResourceType> value);
+
+	UFUNCTION(BlueprintGetter, BlueprintPure)
+	float GetFoodConsumptionRate();
+
+	UFUNCTION(BlueprintSetter, BlueprintCallable)
+	void SetFoodConsumptionRate(float value);
+
+	UFUNCTION(BlueprintGetter, BlueprintPure)
+	float GetFoodDamageRate();
+
+	UFUNCTION(BlueprintSetter, BlueprintCallable)
+	void SetFoodDamageRate(float value);
 
 };

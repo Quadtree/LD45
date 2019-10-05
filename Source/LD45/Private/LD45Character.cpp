@@ -32,6 +32,9 @@ prop(float Health)
 
 prop(TArray<EResourceType> ResourcesBeingEaten)
 
+prop(float FoodConsumptionRate)
+prop(float FoodDamageRate)
+
 DEFINE_LOG_CATEGORY_STATIC(LogFPChar, Warning, All);
 
 //////////////////////////////////////////////////////////////////////////
@@ -362,6 +365,14 @@ void fun::Tick(float deltaTime)
 	{
 		EatResource(eaten, deltaTime);
 		break;
+	}
+
+	Food -= FoodConsumptionRate * deltaTime;
+
+	if (Food < 0)
+	{
+		Health += Food * FoodDamageRate;
+		Food = 0;
 	}
 }
 
