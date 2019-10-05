@@ -7,6 +7,12 @@ prop(UInstancedStaticMeshComponent* TerrainCubes)
 prop(int32 TileWidth)
 prop(int32 TileHeight)
 
+fun::ATerrain()
+{
+	TerrainCubes = CreateDefaultSubobject<UInstancedStaticMeshComponent>("Cubes");
+	RootComponent = TerrainCubes;
+}
+
 void fun::BeginPlay()
 {
 	for (int32 x = 0; x < TileWidth; ++x)

@@ -19,6 +19,8 @@ private:
 	int32 TileHeight;
 
 public:
+	ATerrain();
+
 	UFUNCTION(BlueprintCallable)
 	void BeginPlay();
 

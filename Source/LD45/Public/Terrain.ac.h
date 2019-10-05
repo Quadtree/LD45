@@ -20,4 +20,5 @@ void ATerrain::SetTileHeight(int32 value){ TileHeight = value; }
 
 #include "GameFramework/Actor.h"
 #include "Components/InstancedStaticMeshComponent.h"
+#include "Public/Terrain.h"
 #include "UObject/NoExportTypes.h"
