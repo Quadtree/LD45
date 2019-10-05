@@ -339,7 +339,7 @@ void fun::Tick(float deltaTime)
 		FHitResult res;
 		if (DoConstructibleQuery(res))
 		{
-			HeldConstructible->SetForConstructionAt(res);
+			HeldConstructible->SetForConstructionAt(this, res);
 		}
 		else
 		{
