@@ -19,6 +19,7 @@ prop(USceneComponent* VR_MuzzleLocation)
 prop(bool bUsingMotionControllers)
 prop(TSubclassOf<AActor> ProjectileClass)
 prop(USoundBase* FireSound)
+prop(TMap<EResourceType, float> Resources)
 
 DEFINE_LOG_CATEGORY_STATIC(LogFPChar, Warning, All);
 
@@ -305,4 +306,29 @@ bool fun::EnableTouchscreenMovement(class UInputComponent* PlayerInputComponent)
 	}
 
 	return false;
+}
+
+void fun::Interact(float deltaTime)
+{
+	FHitResult res;
+
+	FVector rayStart = FindComponentByClass<UCameraComponent>()->GetComponentLocation();
+	FRotator rayDir = FindComponentByClass<UCameraComponent>()->GetComponentRotation();
+
+	if (GetWorld()->LineTraceSingleByChannel(res, rayStart, rayStart + rayDir.RotateVector(FVector(500, 0, 0)), ECollisionChannel::ECC_Visibility))
+	{
+		if (auto a = Cast<ATree>(res.Actor))
+		{
+			GainResources(a->Harvest(5 * deltaTime));
+		}
+	}
+}
+
+void fun::GainResources(TMap<EResourceType, float> resourcesToGain)
+{
+	for (auto kv : resourcesToGain)
+	{
+		if (!Resources.Contains(kv.Key)) Resources.Add(kv.Key, 0);
+		Resources[kv.Key] += kv.Value;
+	}
 }

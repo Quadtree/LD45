@@ -39,6 +39,8 @@ TSubclassOf<AActor> ALD45Character::GetProjectileClass(){ return ProjectileClass
 void ALD45Character::SetProjectileClass(TSubclassOf<AActor> value){ ProjectileClass = value; }
 USoundBase* ALD45Character::GetFireSound(){ return FireSound; }
 void ALD45Character::SetFireSound(USoundBase* value){ FireSound = value; }
+TMap<EResourceType, float> ALD45Character::GetResources(){ return Resources; }
+void ALD45Character::SetResources(TMap<EResourceType, float> value){ Resources = value; }
 
 #include "GameFramework/Character.h"
 #include "Camera/CameraComponent.h"
@@ -49,6 +51,7 @@ void ALD45Character::SetFireSound(USoundBase* value){ FireSound = value; }
 #include "Templates/SubclassOf.h"
 #include "GameFramework/Actor.h"
 #include "Sound/SoundBase.h"
+#include "Public/ResourceType.h"
 #include "Public/LD45Character.h"
 #include "XRMotionControllerBase.h"
 #include "Engine/EngineTypes.h"
@@ -63,3 +66,4 @@ void ALD45Character::SetFireSound(USoundBase* value){ FireSound = value; }
 #include "Math/UnrealMathUtility.h"
 #include "GameFramework/InputSettings.h"
 #include "Engine/EngineBaseTypes.h"
+#include "Public/Tree.h"

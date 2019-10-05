@@ -4,6 +4,7 @@
 #include "GameFramework/Character.h"
 #include "UObject/NoExportTypes.h"
 #include "UObject/NoExportTypes.h"
+#include "Public/ResourceType.h"
 #include "Engine/EngineTypes.h"
 #include "Engine/EngineBaseTypes.h"
 #include "LD45Character.generated.h"
@@ -55,6 +56,9 @@ private:
 	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetFireSound, BlueprintSetter=SetFireSound)
 	class USoundBase* FireSound;
 
+	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetResources, BlueprintSetter=SetResources)
+	TMap<EResourceType, float> Resources;
+
 public:
 	ALD45Character();
 
@@ -89,6 +93,12 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	bool EnableTouchscreenMovement(class UInputComponent* PlayerInputComponent);
+
+	UFUNCTION(BlueprintCallable)
+	void Interact(float deltaTime);
+
+	UFUNCTION(BlueprintCallable)
+	void GainResources(TMap<EResourceType, float> resourcesToGain);
 
 	UFUNCTION(BlueprintGetter, BlueprintPure)
 	float GetBaseTurnRate();
@@ -173,5 +183,11 @@ public:
 
 	UFUNCTION(BlueprintSetter, BlueprintCallable)
 	void SetFireSound(class USoundBase* value);
+
+	UFUNCTION(BlueprintGetter, BlueprintPure)
+	TMap<EResourceType, float> GetResources();
+
+	UFUNCTION(BlueprintSetter, BlueprintCallable)
+	void SetResources(TMap<EResourceType, float> value);
 
 };
