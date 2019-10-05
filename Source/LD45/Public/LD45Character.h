@@ -81,6 +81,9 @@ private:
 	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetHealth, BlueprintSetter=SetHealth)
 	float Health;
 
+	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetResourcesBeingEaten, BlueprintSetter=SetResourcesBeingEaten)
+	TArray<EResourceType> ResourcesBeingEaten;
+
 public:
 	ALD45Character();
 
@@ -140,6 +143,18 @@ public:
 
 	UFUNCTION(BlueprintPure)
 	float GetAmountOfResource(EResourceType resourceType);
+
+	UFUNCTION(BlueprintCallable)
+	void EatResource(EResourceType resourceType, float deltaTime);
+
+	UFUNCTION(BlueprintCallable)
+	void EatRedBerriesAxis(float axisValue);
+
+	UFUNCTION(BlueprintCallable)
+	void EatGreenBerriesAxis(float axisValue);
+
+	UFUNCTION(BlueprintCallable)
+	void EatBlueBerriesAxis(float axisValue);
 
 	UFUNCTION(BlueprintGetter, BlueprintPure)
 	float GetBaseTurnRate();
@@ -272,5 +287,11 @@ public:
 
 	UFUNCTION(BlueprintSetter, BlueprintCallable)
 	void SetHealth(float value);
+
+	UFUNCTION(BlueprintGetter, BlueprintPure)
+	TArray<EResourceType> GetResourcesBeingEaten();
+
+	UFUNCTION(BlueprintSetter, BlueprintCallable)
+	void SetResourcesBeingEaten(TArray<EResourceType> value);
 
 };

@@ -30,6 +30,8 @@ prop(float Food)
 prop(float Temperature)
 prop(float Health)
 
+prop(TArray<EResourceType> ResourcesBeingEaten)
+
 DEFINE_LOG_CATEGORY_STATIC(LogFPChar, Warning, All);
 
 //////////////////////////////////////////////////////////////////////////
@@ -156,6 +158,10 @@ void fun::SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent)
 	PlayerInputComponent->BindAxis("LookUpRate", this, &ALD45Character::LookUpAtRate);
 
 	PlayerInputComponent->BindAxis("Interact", this, &ALD45Character::InteractAxis);
+
+	PlayerInputComponent->BindAxis("EatRedBerries", this, &ALD45Character::EatRedBerriesAxis);
+	PlayerInputComponent->BindAxis("EatGreenBerries", this, &ALD45Character::EatGreenBerriesAxis);
+	PlayerInputComponent->BindAxis("EatBlueBerries", this, &ALD45Character::EatBlueBerriesAxis);
 
 	PlayerInputComponent->BindAction("BeginConstruction", IE_Pressed, this, &ALD45Character::BeginConstruction);
 	PlayerInputComponent->BindAction("CancelConstruction", IE_Pressed, this, &ALD45Character::BeginConstruction);
@@ -351,6 +357,12 @@ void fun::Tick(float deltaTime)
 			HeldConstructible->SetActorLocation(FVector(0, 0, -50000));
 		}
 	}
+
+	for (auto eaten : ResourcesBeingEaten)
+	{
+		EatResource(eaten, deltaTime);
+		break;
+	}
 }
 
 void fun::InteractAxis(float amount)
@@ -426,4 +438,32 @@ float fun::GetAmountOfResource(EResourceType resourceType)
 {
 	if (Resources.Contains(resourceType)) return Resources[resourceType];
 	return 0;
+}
+
+void fun::EatResource(EResourceType resourceType, float deltaTime)
+{
+	if (!Resources.Contains(resourceType)) Resources.Add(resourceType, 0);
+
+	float eaten = FMath::Clamp(deltaTime * 10, 0.f, Resources[resourceType]);
+
+	Resources[resourceType] -= eaten;
+	Food = FMath::Clamp(Food + eaten, 0.f, 100.f);
+}
+
+void fun::EatRedBerriesAxis(float axisValue)
+{
+	if (axisValue > 0.1f && !ResourcesBeingEaten.Contains(EResourceType::RT_RedBerries)) ResourcesBeingEaten.Add(EResourceType::RT_RedBerries);
+	if (axisValue < 0.1f && ResourcesBeingEaten.Contains(EResourceType::RT_RedBerries)) ResourcesBeingEaten.Remove(EResourceType::RT_RedBerries);
+}
+
+void fun::EatGreenBerriesAxis(float axisValue)
+{
+	if (axisValue > 0.1f && !ResourcesBeingEaten.Contains(EResourceType::RT_GreenBerries)) ResourcesBeingEaten.Add(EResourceType::RT_GreenBerries);
+	if (axisValue < 0.1f && ResourcesBeingEaten.Contains(EResourceType::RT_GreenBerries)) ResourcesBeingEaten.Remove(EResourceType::RT_GreenBerries);
+}
+
+void fun::EatBlueBerriesAxis(float axisValue)
+{
+	if (axisValue > 0.1f && !ResourcesBeingEaten.Contains(EResourceType::RT_BlueBerries)) ResourcesBeingEaten.Add(EResourceType::RT_BlueBerries);
+	if (axisValue < 0.1f && ResourcesBeingEaten.Contains(EResourceType::RT_BlueBerries)) ResourcesBeingEaten.Remove(EResourceType::RT_BlueBerries);
 }

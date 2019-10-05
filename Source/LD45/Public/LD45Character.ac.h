@@ -55,6 +55,8 @@ float ALD45Character::GetTemperature(){ return Temperature; }
 void ALD45Character::SetTemperature(float value){ Temperature = value; }
 float ALD45Character::GetHealth(){ return Health; }
 void ALD45Character::SetHealth(float value){ Health = value; }
+TArray<EResourceType> ALD45Character::GetResourcesBeingEaten(){ return ResourcesBeingEaten; }
+void ALD45Character::SetResourcesBeingEaten(TArray<EResourceType> value){ ResourcesBeingEaten = value; }
 
 #include "LD45.h"
 #include "GameFramework/Character.h"
