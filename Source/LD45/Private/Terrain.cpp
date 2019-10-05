@@ -39,10 +39,10 @@ void fun::BeginPlay()
 		{
 			for (int32 y = 0; y < TileHeight; y += squareSize)
 			{
-				DiamondStep(x - squareSize / 2, y,					x + squareSize, y + squareSize);
-				DiamondStep(x + squareSize / 2, y,					x + squareSize, y + squareSize);
-				DiamondStep(x,					y - squareSize / 2, x + squareSize, y + squareSize);
-				DiamondStep(x,					y + squareSize / 2, x + squareSize, y + squareSize);
+				DiamondStep(x - squareSize / 2, y,					x - squareSize / 2 + squareSize,	y + squareSize);
+				DiamondStep(x + squareSize / 2, y,					x + squareSize / 2 + squareSize,	y + squareSize);
+				DiamondStep(x,					y - squareSize / 2, x + squareSize,						y - squareSize / 2 + squareSize);
+				DiamondStep(x,					y + squareSize / 2, x + squareSize,						y + squareSize / 2 + squareSize);
 			}
 		}
 	}
@@ -55,7 +55,7 @@ void fun::BeginPlay()
 
 			trans.SetComponents(
 				FQuat::Identity,
-				FVector(x * 100, y * 100, GetTileHeightAt(x,y)),
+				FVector(x * 100, y * 100, GetTileHeightAt(x,y)*30),
 				FVector(1, 1, 50)
 			);
 
