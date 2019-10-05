@@ -33,6 +33,14 @@ mods(bare) void fun::SetForConstructionAt(AActor* constructor, const FHitResult&
 		SetActorRotation(rot);
 		SetActorLocation(res.Location);
 	}
+	else
+	{
+		// this is a ceiling
+		FRotator rot = res.ImpactNormal.Rotation();
+
+		SetActorRotation(rot);
+		SetActorLocation(res.Location);
+	}
 }
 
 void fun::BeginPlay()
