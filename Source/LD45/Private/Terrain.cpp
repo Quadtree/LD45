@@ -24,7 +24,7 @@ fun::ATerrain()
 
 void fun::BeginPlay()
 {
-	for (int32 buildAttempt = 0; buildAttempt < 1000; ++buildAttempt)
+	for (int32 buildAttempt = 0; buildAttempt < 2000; ++buildAttempt)
 	{
 		Jaggedness.Empty();
 		for (int32 x = 0; x < 8; ++x)
@@ -80,10 +80,10 @@ void fun::BeginPlay()
 				int32 distToSide = FMath::Min(
 					TileHeight - y,
 					FMath::Min3(
-					x,
-					y,
-					TileWidth - x
-				));
+						x,
+						y,
+						TileWidth - x
+					)) * 2;
 
 				//if (distToSide < 20) {
 					if (height > distToSide) {
@@ -92,8 +92,8 @@ void fun::BeginPlay()
 					}
 					while (height > distToSide) {
 						height = HeightMap[x][y];
-						int32 cx = x + FMath::RandRange(-7, 7);
-						int32 cy = y + FMath::RandRange(-7, 7);
+						int32 cx = x + FMath::RandRange(-1, 1) * FMath::Square(FMath::RandRange(1, 4));
+						int32 cy = y + FMath::RandRange(-1, 1) * FMath::Square(FMath::RandRange(1, 4));
 						SetTileHeightAt(cx, cy, GetTileHeightAt(cx,cy) - FMath::FRandRange(0, 0.8f));
 					}
 				//}
@@ -106,7 +106,7 @@ void fun::BeginPlay()
 
 		UE_LOG(LogTemp, Display, TEXT("aboveWaterTiles=%s totalTiles=%s tooHighEdgeTiles=%s"), *FString::FromInt(aboveWaterTiles), *FString::FromInt(totalTiles), *FString::FromInt(tooHighEdgeTiles));
 
-		if (aboveWaterTiles >= totalTiles / 2 && tooHighEdgeTiles < totalTiles / 20) break;
+		if (aboveWaterTiles >= totalTiles / 2 && tooHighEdgeTiles < totalTiles / 10) break;
 	}
 	
 
