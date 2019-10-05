@@ -23,12 +23,12 @@ mods(bare) void fun::SetForConstructionAt(AActor* constructor, const FHitResult&
 	if (res.ImpactNormal.Z > 0.5f)
 	{
 		// this is a wall
-		FRotator rot = res.ImpactNormal.ToOrientationRotator();
+		FRotator rot = res.ImpactNormal.Rotation();
 		
 		FVector delta = res.Location - constructor->GetActorLocation();
 
 		float yaw = delta.Rotation().Yaw;
-		rot.Roll = yaw;
+		rot.Roll = -yaw;
 
 		SetActorRotation(rot);
 		SetActorLocation(res.Location);
