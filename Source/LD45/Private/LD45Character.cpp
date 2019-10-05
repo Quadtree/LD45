@@ -24,6 +24,7 @@ prop(bool IsInteracting)
 
 prop(AConstructible* HeldConstructible)
 prop(TSubclassOf<AConstructible> ConstructibleType)
+prop(float ConstructionCost)
 
 DEFINE_LOG_CATEGORY_STATIC(LogFPChar, Warning, All);
 
@@ -396,7 +397,11 @@ void fun::GainResources(TMap<EResourceType, float> resourcesToGain)
 
 void fun::BeginConstruction()
 {
-	HeldConstructible = GetWorld()->SpawnActor<AConstructible>(ConstructibleType, FVector(0, 0, -40000), FRotator::ZeroRotator);
+	if (Resources.Contains(EResourceType::RT_Wood) && Resources[EResourceType::RT_Wood] >= ConstructionCost)
+	{
+		Resources[EResourceType::RT_Wood] -= ConstructionCost;
+		HeldConstructible = GetWorld()->SpawnActor<AConstructible>(ConstructibleType, FVector(0, 0, -40000), FRotator::ZeroRotator);
+	}
 }
 
 void fun::PlaceConstructible()
@@ -408,4 +413,7 @@ void fun::CancelConstruction()
 {
 	HeldConstructible->Destroy();
 	HeldConstructible = nullptr;
+
+	if (!Resources.Contains(EResourceType::RT_Wood)) Resources.Add(EResourceType::RT_Wood, 0);
+	Resources[EResourceType::RT_Wood] += ConstructionCost;
 }

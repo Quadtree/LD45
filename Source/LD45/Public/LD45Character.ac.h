@@ -47,6 +47,8 @@ AConstructible* ALD45Character::GetHeldConstructible(){ return HeldConstructible
 void ALD45Character::SetHeldConstructible(AConstructible* value){ HeldConstructible = value; }
 TSubclassOf<AConstructible> ALD45Character::GetConstructibleType(){ return ConstructibleType; }
 void ALD45Character::SetConstructibleType(TSubclassOf<AConstructible> value){ ConstructibleType = value; }
+float ALD45Character::GetConstructionCost(){ return ConstructionCost; }
+void ALD45Character::SetConstructionCost(float value){ ConstructionCost = value; }
 
 #include "LD45.h"
 #include "GameFramework/Character.h"

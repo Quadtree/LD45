@@ -69,6 +69,9 @@ private:
 	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetConstructibleType, BlueprintSetter=SetConstructibleType)
 	TSubclassOf<AConstructible> ConstructibleType;
 
+	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetConstructionCost, BlueprintSetter=SetConstructionCost)
+	float ConstructionCost;
+
 public:
 	ALD45Character();
 
@@ -233,5 +236,11 @@ public:
 
 	UFUNCTION(BlueprintSetter, BlueprintCallable)
 	void SetConstructibleType(TSubclassOf<AConstructible> value);
+
+	UFUNCTION(BlueprintGetter, BlueprintPure)
+	float GetConstructionCost();
+
+	UFUNCTION(BlueprintSetter, BlueprintCallable)
+	void SetConstructionCost(float value);
 
 };
