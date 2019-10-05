@@ -9,8 +9,8 @@ class LD45_API ATerrain : public AActor
 {
 	GENERATED_BODY()
 private:
-	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetTerrainCube, BlueprintSetter=SetTerrainCube)
-	class UStaticMesh* TerrainCube;
+	UPROPERTY(SaveGame, VisibleAnywhere, BlueprintGetter=GetTerrainCubes, BlueprintSetter=SetTerrainCubes)
+	class UInstancedStaticMeshComponent* TerrainCubes;
 
 	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetTileWidth, BlueprintSetter=SetTileWidth)
 	int32 TileWidth;
@@ -23,10 +23,10 @@ public:
 	void BeginPlay();
 
 	UFUNCTION(BlueprintGetter, BlueprintPure)
-	class UStaticMesh* GetTerrainCube();
+	class UInstancedStaticMeshComponent* GetTerrainCubes();
 
 	UFUNCTION(BlueprintSetter, BlueprintCallable)
-	void SetTerrainCube(class UStaticMesh* value);
+	void SetTerrainCubes(class UInstancedStaticMeshComponent* value);
 
 	UFUNCTION(BlueprintGetter, BlueprintPure)
 	int32 GetTileWidth();
