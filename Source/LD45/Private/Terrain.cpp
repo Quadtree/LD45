@@ -68,8 +68,16 @@ void fun::SetTileHeightAt(int32 x, int32 y, float height)
 {
 	if (x < 0 || y < 0 || x >= TileWidth || y >= TileHeight) return;
 
-	if (x < 5 || y < 5 || x >= TileWidth - 5 || y >= TileHeight - 5) {
-		while (height > 2) {
+	int32 distToSide = FMath::Min(
+		TileHeight - y,
+		FMath::Min3(
+		x,
+		y,
+		TileWidth - x
+	));
+
+	if (distToSide < 5) {
+		while (height > distToSide) {
 			height -= FMath::FRandRange(0, 5);
 		}
 	}
