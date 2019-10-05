@@ -11,5 +11,16 @@
 #define classMods(...)
 #define delegateVoid(...)
 #define fun         AConstructible
+float AConstructible::GetWoodCost(){ return WoodCost; }
+void AConstructible::SetWoodCost(float value){ WoodCost = value; }
+UStaticMeshComponent* AConstructible::GetStaticMesh(){ return StaticMesh; }
+void AConstructible::SetStaticMesh(UStaticMeshComponent* value){ StaticMesh = value; }
+USceneComponent* AConstructible::GetSceneComp(){ return SceneComp; }
+void AConstructible::SetSceneComp(USceneComponent* value){ SceneComp = value; }
 
 #include "GameFramework/Actor.h"
+#include "Components/StaticMeshComponent.h"
+#include "Components/SceneComponent.h"
+#include "Public/Constructible.h"
+#include "Engine/EngineTypes.h"
+#include "UObject/NoExportTypes.h"

@@ -22,6 +22,9 @@ prop(USoundBase* FireSound)
 prop(TMap<EResourceType, float> Resources)
 prop(bool IsInteracting)
 
+prop(AConstructible* HeldConstructible)
+prop(TSubclassOf<AConstructible> ConstructibleType)
+
 DEFINE_LOG_CATEGORY_STATIC(LogFPChar, Warning, All);
 
 //////////////////////////////////////////////////////////////////////////
@@ -148,6 +151,9 @@ void fun::SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent)
 	PlayerInputComponent->BindAxis("LookUpRate", this, &ALD45Character::LookUpAtRate);
 
 	PlayerInputComponent->BindAxis("Interact", this, &ALD45Character::InteractAxis);
+
+	PlayerInputComponent->BindAction("BeginConstruction", IE_Pressed, this, &ALD45Character::BeginConstruction);
+	PlayerInputComponent->BindAction("CancelConstruction", IE_Pressed, this, &ALD45Character::BeginConstruction);
 }
 
 void fun::OnFire()
@@ -311,6 +317,14 @@ bool fun::EnableTouchscreenMovement(class UInputComponent* PlayerInputComponent)
 	return false;
 }
 
+mods(bare) bool fun::DoConstructibleQuery(FHitResult& res)
+{
+	FVector rayStart = FindComponentByClass<UCameraComponent>()->GetComponentLocation();
+	FRotator rayDir = FindComponentByClass<UCameraComponent>()->GetComponentRotation();
+
+	return GetWorld()->LineTraceSingleByChannel(res, rayStart, rayStart + rayDir.RotateVector(FVector(700, 0, 0)), ECollisionChannel::ECC_Visibility);
+}
+
 void fun::Tick(float deltaTime)
 {
 	Super::Tick(deltaTime);
@@ -318,6 +332,19 @@ void fun::Tick(float deltaTime)
 	if (IsInteracting)
 	{
 		Interact(deltaTime);
+	}
+
+	if (HeldConstructible)
+	{
+		FHitResult res;
+		if (DoConstructibleQuery(res))
+		{
+			HeldConstructible->SetForConstructionAt(res);
+		}
+		else
+		{
+			HeldConstructible->SetActorLocation(FVector(0, 0, -50000));
+		}
 	}
 }
 
@@ -355,4 +382,20 @@ void fun::GainResources(TMap<EResourceType, float> resourcesToGain)
 		Resources[kv.Key] += kv.Value;
 		UE_LOG(LogTemp, Display, TEXT("Gained %s %s, new value is %s"), *FString::SanitizeFloat(kv.Value), *FString::FromInt((int32)kv.Key), *FString::SanitizeFloat(Resources[kv.Key]));
 	}
+}
+
+void fun::BeginConstruction()
+{
+	HeldConstructible = GetWorld()->SpawnActor<AConstructible>(ConstructibleType, FVector(0, 0, -40000), FRotator::ZeroRotator);
+}
+
+void fun::PlaceConstructible()
+{
+
+}
+
+void fun::CancelConstruction()
+{
+	HeldConstructible->Destroy();
+	HeldConstructible = nullptr;
 }

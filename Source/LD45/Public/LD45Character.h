@@ -63,6 +63,12 @@ private:
 	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetIsInteracting, BlueprintSetter=SetIsInteracting)
 	bool IsInteracting;
 
+	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetHeldConstructible, BlueprintSetter=SetHeldConstructible)
+	AConstructible* HeldConstructible;
+
+	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetConstructibleType, BlueprintSetter=SetConstructibleType)
+	TSubclassOf<AConstructible> ConstructibleType;
+
 public:
 	ALD45Character();
 
@@ -98,6 +104,8 @@ public:
 	UFUNCTION(BlueprintCallable)
 	bool EnableTouchscreenMovement(class UInputComponent* PlayerInputComponent);
 
+	bool DoConstructibleQuery(FHitResult& res);
+
 	void Tick(float deltaTime) override;
 
 	UFUNCTION(BlueprintCallable)
@@ -108,6 +116,15 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void GainResources(TMap<EResourceType, float> resourcesToGain);
+
+	UFUNCTION(BlueprintCallable)
+	void BeginConstruction();
+
+	UFUNCTION(BlueprintCallable)
+	void PlaceConstructible();
+
+	UFUNCTION(BlueprintCallable)
+	void CancelConstruction();
 
 	UFUNCTION(BlueprintGetter, BlueprintPure)
 	float GetBaseTurnRate();
@@ -204,5 +221,17 @@ public:
 
 	UFUNCTION(BlueprintSetter, BlueprintCallable)
 	void SetIsInteracting(bool value);
+
+	UFUNCTION(BlueprintGetter, BlueprintPure)
+	AConstructible*  GetHeldConstructible();
+
+	UFUNCTION(BlueprintSetter, BlueprintCallable)
+	void SetHeldConstructible(AConstructible* value);
+
+	UFUNCTION(BlueprintGetter, BlueprintPure)
+	TSubclassOf<AConstructible>  GetConstructibleType();
+
+	UFUNCTION(BlueprintSetter, BlueprintCallable)
+	void SetConstructibleType(TSubclassOf<AConstructible> value);
 
 };

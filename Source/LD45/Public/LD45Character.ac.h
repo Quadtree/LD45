@@ -43,6 +43,10 @@ TMap<EResourceType, float> ALD45Character::GetResources(){ return Resources; }
 void ALD45Character::SetResources(TMap<EResourceType, float> value){ Resources = value; }
 bool ALD45Character::GetIsInteracting(){ return IsInteracting; }
 void ALD45Character::SetIsInteracting(bool value){ IsInteracting = value; }
+AConstructible* ALD45Character::GetHeldConstructible(){ return HeldConstructible; }
+void ALD45Character::SetHeldConstructible(AConstructible* value){ HeldConstructible = value; }
+TSubclassOf<AConstructible> ALD45Character::GetConstructibleType(){ return ConstructibleType; }
+void ALD45Character::SetConstructibleType(TSubclassOf<AConstructible> value){ ConstructibleType = value; }
 
 #include "LD45.h"
 #include "GameFramework/Character.h"
@@ -55,6 +59,7 @@ void ALD45Character::SetIsInteracting(bool value){ IsInteracting = value; }
 #include "GameFramework/Actor.h"
 #include "Sound/SoundBase.h"
 #include "Public/ResourceType.h"
+#include "Public/Constructible.h"
 #include "Public/LD45Character.h"
 #include "XRMotionControllerBase.h"
 #include "Engine/EngineTypes.h"
