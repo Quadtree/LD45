@@ -29,3 +29,5 @@ void ATerrain::SetTileSize(float value){ TileSize = value; }
 #include "Math/UnrealMathUtility.h"
 #include "Containers/UnrealString.h"
 #include "UObject/NoExportTypes.h"
+#include "EngineUtils.h"
+#include "Public/LD45Character.h"

@@ -1,0 +1,7 @@
+- Some kind of city builder
+- Survival game. You wash ashore on an island with nothing
+  - Build shelters from wood?
+  - Rain or something?
+  - Sorta like Detour?
+  - Terrain created of sort of parabolic random height upthrust things
+- Maybe a RTS like TA?

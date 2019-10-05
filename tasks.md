@@ -1,0 +1,12 @@
+- Add in trees
+- Add in bushes
+- Allow chopping of trees
+- Allow collection of berries
+- Construction of walls
+- Construction of ceilings
+- Heat
+- Fire
+- Being rescued and winning
+- Final graphics
+- Sound effects
+- Music

@@ -108,7 +108,9 @@ void fun::BeginPlay()
 
 		if (aboveWaterTiles >= totalTiles / 2 && tooHighEdgeTiles < totalTiles / 10) break;
 	}
-	
+
+	FVector startPoint;
+	int32 n = 0;
 
 	for (int32 x = 0; x < TileWidth; ++x)
 	{
@@ -125,8 +127,18 @@ void fun::BeginPlay()
 				);
 
 				TerrainCubes->AddInstance(trans);
+
+				if (FMath::RandRange(0, n++) == 0)
+				{
+					startPoint = trans.GetLocation() + 27;
+				}
 			}
 		}
+	}
+
+	for (TActorIterator<ALD45Character> i(GetWorld()); i; ++i)
+	{
+		i->SetActorLocation(startPoint);
 	}
 }
 
