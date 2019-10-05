@@ -73,6 +73,10 @@ void fun::BeginPlay()
 						++tooHighEdgeTiles;
 						SetTileHeightAt(x, y, distToSide);
 					}
+					while (height > distToSide) {
+						height -= FMath::FRandRange(0, 0.5f);
+					}
+					SetTileHeightAt(x, y, height);
 				}
 
 				if (height >= 0) {
@@ -83,7 +87,7 @@ void fun::BeginPlay()
 
 		UE_LOG(LogTemp, Display, TEXT("aboveWaterTiles=%s totalTiles=%s tooHighEdgeTiles=%s"), *FString::FromInt(aboveWaterTiles), *FString::FromInt(totalTiles), *FString::FromInt(tooHighEdgeTiles));
 
-		if (aboveWaterTiles >= totalTiles / 2 && tooHighEdgeTiles < 200) break;
+		if (aboveWaterTiles >= totalTiles / 2 && tooHighEdgeTiles < totalTiles / 20) break;
 	}
 	
 
