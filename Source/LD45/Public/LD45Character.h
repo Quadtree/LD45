@@ -59,6 +59,9 @@ private:
 	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetResources, BlueprintSetter=SetResources)
 	TMap<EResourceType, float> Resources;
 
+	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetIsInteracting, BlueprintSetter=SetIsInteracting)
+	bool IsInteracting;
+
 public:
 	ALD45Character();
 
@@ -93,6 +96,11 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	bool EnableTouchscreenMovement(class UInputComponent* PlayerInputComponent);
+
+	void Tick(float deltaTime) override;
+
+	UFUNCTION(BlueprintCallable)
+	void InteractAxis(float amount);
 
 	UFUNCTION(BlueprintCallable)
 	void Interact(float deltaTime);
@@ -189,5 +197,11 @@ public:
 
 	UFUNCTION(BlueprintSetter, BlueprintCallable)
 	void SetResources(TMap<EResourceType, float> value);
+
+	UFUNCTION(BlueprintGetter, BlueprintPure)
+	bool GetIsInteracting();
+
+	UFUNCTION(BlueprintSetter, BlueprintCallable)
+	void SetIsInteracting(bool value);
 
 };

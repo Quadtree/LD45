@@ -20,6 +20,7 @@ prop(bool bUsingMotionControllers)
 prop(TSubclassOf<AActor> ProjectileClass)
 prop(USoundBase* FireSound)
 prop(TMap<EResourceType, float> Resources)
+prop(bool IsInteracting)
 
 DEFINE_LOG_CATEGORY_STATIC(LogFPChar, Warning, All);
 
@@ -306,6 +307,21 @@ bool fun::EnableTouchscreenMovement(class UInputComponent* PlayerInputComponent)
 	}
 
 	return false;
+}
+
+void fun::Tick(float deltaTime)
+{
+	Super::Tick(deltaTime);
+
+	if (IsInteracting)
+	{
+		Interact(deltaTime);
+	}
+}
+
+void fun::InteractAxis(float amount)
+{
+	IsInteracting = amount > 0.01f;
 }
 
 void fun::Interact(float deltaTime)

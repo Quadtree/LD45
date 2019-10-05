@@ -41,6 +41,8 @@ USoundBase* ALD45Character::GetFireSound(){ return FireSound; }
 void ALD45Character::SetFireSound(USoundBase* value){ FireSound = value; }
 TMap<EResourceType, float> ALD45Character::GetResources(){ return Resources; }
 void ALD45Character::SetResources(TMap<EResourceType, float> value){ Resources = value; }
+bool ALD45Character::GetIsInteracting(){ return IsInteracting; }
+void ALD45Character::SetIsInteracting(bool value){ IsInteracting = value; }
 
 #include "GameFramework/Character.h"
 #include "Camera/CameraComponent.h"
