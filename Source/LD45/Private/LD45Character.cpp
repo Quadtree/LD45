@@ -146,6 +146,8 @@ void fun::SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent)
 	PlayerInputComponent->BindAxis("TurnRate", this, &ALD45Character::TurnAtRate);
 	PlayerInputComponent->BindAxis("LookUp", this, &APawn::AddControllerPitchInput);
 	PlayerInputComponent->BindAxis("LookUpRate", this, &ALD45Character::LookUpAtRate);
+
+	PlayerInputComponent->BindAxis("Interact", this, &ALD45Character::InteractAxis);
 }
 
 void fun::OnFire()
@@ -335,7 +337,7 @@ void fun::Interact(float deltaTime)
 	{
 		if (auto a = Cast<ATree>(res.Actor))
 		{
-			GainResources(a->Harvest(5 * deltaTime));
+			GainResources(a->Harvest(10 * deltaTime));
 		}
 	}
 }
@@ -346,5 +348,6 @@ void fun::GainResources(TMap<EResourceType, float> resourcesToGain)
 	{
 		if (!Resources.Contains(kv.Key)) Resources.Add(kv.Key, 0);
 		Resources[kv.Key] += kv.Value;
+		UE_LOG(LogTemp, Display, TEXT("Gained %s %s, new value is %s"), *FString::SanitizeFloat(kv.Value), *FString::FromInt((int32)kv.Key), *FString::SanitizeFloat(Resources[kv.Key]));
 	}
 }

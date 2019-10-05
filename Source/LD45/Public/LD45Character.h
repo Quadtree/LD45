@@ -4,6 +4,7 @@
 #include "GameFramework/Character.h"
 #include "UObject/NoExportTypes.h"
 #include "UObject/NoExportTypes.h"
+#include "LD45.h"
 #include "Public/ResourceType.h"
 #include "Engine/EngineTypes.h"
 #include "Engine/EngineBaseTypes.h"

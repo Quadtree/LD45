@@ -21,5 +21,7 @@ mods(bare) TMap<EResourceType, float> fun::Harvest(float harvestSpeed)
 	TMap<EResourceType, float> ret2;
 	ret2.Add(EResourceType::RT_Wood, ret);
 
+	WoodLeft -= ret;
+
 	return ret2;
 }

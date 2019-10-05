@@ -44,6 +44,7 @@ void ALD45Character::SetResources(TMap<EResourceType, float> value){ Resources =
 bool ALD45Character::GetIsInteracting(){ return IsInteracting; }
 void ALD45Character::SetIsInteracting(bool value){ IsInteracting = value; }
 
+#include "LD45.h"
 #include "GameFramework/Character.h"
 #include "Camera/CameraComponent.h"
 #include "Components/SkeletalMeshComponent.h"
@@ -69,3 +70,4 @@ void ALD45Character::SetIsInteracting(bool value){ IsInteracting = value; }
 #include "GameFramework/InputSettings.h"
 #include "Engine/EngineBaseTypes.h"
 #include "Public/Tree.h"
+#include "Containers/UnrealString.h"
