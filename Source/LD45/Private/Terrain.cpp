@@ -14,6 +14,14 @@ prop(float TileSize)
 
 prop(bare private TArray<TArray<float>> Jaggedness)
 
+prop(TSubclassOf<AActor> TreeActorType)
+prop(TSubclassOf<AActor> BushActorType)
+
+prop(int32 Trees)
+prop(int32 Bushes)
+
+prop(float TreeLine)
+
 fun::ATerrain()
 {
 	TerrainCubes = CreateDefaultSubobject<UInstancedStaticMeshComponent>("Cubes");
@@ -139,6 +147,22 @@ void fun::BeginPlay()
 	for (TActorIterator<ALD45Character> i(GetWorld()); i; ++i)
 	{
 		i->SetActorLocation(startPoint);
+	}
+
+	for (int32 i=0;i<1000000 && Trees > 0;++i)
+	{
+		FVector pos = FVector(FMath::FRandRange(0, TileWidth * TileSize), FMath::FRandRange(0, TileWidth * TileSize), 10000);
+
+		FHitResult res;
+
+		if (GetWorld()->LineTraceSingleByObjectType(res, pos, pos - FVector(0, 0, 50000), FCollisionObjectQueryParams::AllObjects, FCollisionQueryParams()))
+		{
+			if (res.Actor == this && res.ImpactPoint.Z <= TreeLine)
+			{
+				GetWorld()->SpawnActor<AActor>(TreeActorType, res.ImpactPoint, FRotator::ZeroRotator);
+				--Trees;
+			}
+		}
 	}
 }
 

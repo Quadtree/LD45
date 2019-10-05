@@ -29,6 +29,21 @@ private:
 
 	TArray<TArray<float>> Jaggedness;
 
+	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetTreeActorType, BlueprintSetter=SetTreeActorType)
+	TSubclassOf<AActor> TreeActorType;
+
+	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetBushActorType, BlueprintSetter=SetBushActorType)
+	TSubclassOf<AActor> BushActorType;
+
+	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetTrees, BlueprintSetter=SetTrees)
+	int32 Trees;
+
+	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetBushes, BlueprintSetter=SetBushes)
+	int32 Bushes;
+
+	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetTreeLine, BlueprintSetter=SetTreeLine)
+	float TreeLine;
+
 public:
 	ATerrain();
 
@@ -79,5 +94,35 @@ public:
 
 	UFUNCTION(BlueprintSetter, BlueprintCallable)
 	void SetTileSize(float value);
+
+	UFUNCTION(BlueprintGetter, BlueprintPure)
+	TSubclassOf<AActor>  GetTreeActorType();
+
+	UFUNCTION(BlueprintSetter, BlueprintCallable)
+	void SetTreeActorType(TSubclassOf<AActor> value);
+
+	UFUNCTION(BlueprintGetter, BlueprintPure)
+	TSubclassOf<AActor>  GetBushActorType();
+
+	UFUNCTION(BlueprintSetter, BlueprintCallable)
+	void SetBushActorType(TSubclassOf<AActor> value);
+
+	UFUNCTION(BlueprintGetter, BlueprintPure)
+	int32 GetTrees();
+
+	UFUNCTION(BlueprintSetter, BlueprintCallable)
+	void SetTrees(int32 value);
+
+	UFUNCTION(BlueprintGetter, BlueprintPure)
+	int32 GetBushes();
+
+	UFUNCTION(BlueprintSetter, BlueprintCallable)
+	void SetBushes(int32 value);
+
+	UFUNCTION(BlueprintGetter, BlueprintPure)
+	float GetTreeLine();
+
+	UFUNCTION(BlueprintSetter, BlueprintCallable)
+	void SetTreeLine(float value);
 
 };
