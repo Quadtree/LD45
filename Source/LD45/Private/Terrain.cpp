@@ -9,10 +9,15 @@ prop(int32 TileHeight)
 
 prop(bare private TArray<TArray<float>> HeightMap)
 
+prop(float HeightMultiplier)
+prop(float TileSize)
+
 fun::ATerrain()
 {
 	TerrainCubes = CreateDefaultSubobject<UInstancedStaticMeshComponent>("Cubes");
 	RootComponent = TerrainCubes;
+	HeightMultiplier = 30;
+	TileSize = 100;
 }
 
 void fun::BeginPlay()
@@ -99,8 +104,8 @@ void fun::BeginPlay()
 
 			trans.SetComponents(
 				FQuat::Identity,
-				FVector(x * 100, y * 100, GetTileHeightAt(x,y)*30),
-				FVector(1, 1, 50)
+				FVector(x * TileSize, y * TileSize, GetTileHeightAt(x,y)* HeightMultiplier),
+				FVector(1 * TileSize/100, 1 * TileSize/100, 50)
 			);
 
 			TerrainCubes->AddInstance(trans);

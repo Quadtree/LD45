@@ -17,6 +17,10 @@ int32 ATerrain::GetTileWidth(){ return TileWidth; }
 void ATerrain::SetTileWidth(int32 value){ TileWidth = value; }
 int32 ATerrain::GetTileHeight(){ return TileHeight; }
 void ATerrain::SetTileHeight(int32 value){ TileHeight = value; }
+float ATerrain::GetHeightMultiplier(){ return HeightMultiplier; }
+void ATerrain::SetHeightMultiplier(float value){ HeightMultiplier = value; }
+float ATerrain::GetTileSize(){ return TileSize; }
+void ATerrain::SetTileSize(float value){ TileSize = value; }
 
 #include "LD45.h"
 #include "GameFramework/Actor.h"

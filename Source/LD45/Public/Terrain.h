@@ -21,6 +21,12 @@ private:
 
 	TArray<TArray<float>> HeightMap;
 
+	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetHeightMultiplier, BlueprintSetter=SetHeightMultiplier)
+	float HeightMultiplier;
+
+	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetTileSize, BlueprintSetter=SetTileSize)
+	float TileSize;
+
 public:
 	ATerrain();
 
@@ -56,5 +62,17 @@ public:
 
 	UFUNCTION(BlueprintSetter, BlueprintCallable)
 	void SetTileHeight(int32 value);
+
+	UFUNCTION(BlueprintGetter, BlueprintPure)
+	float GetHeightMultiplier();
+
+	UFUNCTION(BlueprintSetter, BlueprintCallable)
+	void SetHeightMultiplier(float value);
+
+	UFUNCTION(BlueprintGetter, BlueprintPure)
+	float GetTileSize();
+
+	UFUNCTION(BlueprintSetter, BlueprintCallable)
+	void SetTileSize(float value);
 
 };
