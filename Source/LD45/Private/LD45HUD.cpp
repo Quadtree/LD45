@@ -1,13 +1,15 @@
 // Copyright 1998-2019 Epic Games, Inc. All Rights Reserved.
 
 #include "LD45HUD.h"
-#include "Engine/Canvas.h"
-#include "Engine/Texture2D.h"
-#include "TextureResource.h"
-#include "CanvasItem.h"
-#include "UObject/ConstructorHelpers.h"
+#include "LD45HUD.ac.h"
 
-ALD45HUD::ALD45HUD()
+extends(AHUD)
+
+im(UCanvas)
+
+prop(UTexture2D* CrosshairTex)
+
+fun::ALD45HUD()
 {
 	// Set the crosshair texture
 	static ConstructorHelpers::FObjectFinder<UTexture2D> CrosshairTexObj(TEXT("/Game/FirstPerson/Textures/FirstPersonCrosshair"));
@@ -15,7 +17,7 @@ ALD45HUD::ALD45HUD()
 }
 
 
-void ALD45HUD::DrawHUD()
+void fun::DrawHUD()
 {
 	Super::DrawHUD();
 

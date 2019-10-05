@@ -1,23 +1,31 @@
 // Copyright 1998-2019 Epic Games, Inc. All Rights Reserved.
 
 #include "LD45Character.h"
-#include "LD45Projectile.h"
-#include "Animation/AnimInstance.h"
-#include "Camera/CameraComponent.h"
-#include "Components/CapsuleComponent.h"
-#include "Components/InputComponent.h"
-#include "GameFramework/InputSettings.h"
-#include "HeadMountedDisplayFunctionLibrary.h"
-#include "Kismet/GameplayStatics.h"
-#include "MotionControllerComponent.h"
-#include "XRMotionControllerBase.h" // for FXRMotionControllerBase::RightHandSourceId
+#include "LD45Character.ac.h"
+
+extends(ACharacter)
+
+prop(float BaseTurnRate)
+prop(float BaseLookUpRate)
+prop(UCameraComponent* FirstPersonCameraComponent)
+prop(USkeletalMeshComponent* Mesh1P)
+prop(USkeletalMeshComponent* FP_Gun)
+prop(USceneComponent* FP_MuzzleLocation)
+prop(FVector GunOffset)
+prop(UMotionControllerComponent* R_MotionController)
+prop(UMotionControllerComponent* L_MotionController)
+prop(USkeletalMeshComponent* VR_Gun)
+prop(USceneComponent* VR_MuzzleLocation)
+prop(bool bUsingMotionControllers)
+prop(TSubclassOf<AActor> ProjectileClass)
+prop(USoundBase* FireSound)
 
 DEFINE_LOG_CATEGORY_STATIC(LogFPChar, Warning, All);
 
 //////////////////////////////////////////////////////////////////////////
 // ALD45Character
 
-ALD45Character::ALD45Character()
+fun::ALD45Character()
 {
 	// Set size for collision capsule
 	GetCapsuleComponent()->InitCapsuleSize(55.f, 96.0f);
@@ -84,7 +92,7 @@ ALD45Character::ALD45Character()
 	//bUsingMotionControllers = true;
 }
 
-void ALD45Character::BeginPlay()
+void fun::BeginPlay()
 {
 	// Call the base class  
 	Super::BeginPlay();
@@ -108,7 +116,7 @@ void ALD45Character::BeginPlay()
 //////////////////////////////////////////////////////////////////////////
 // Input
 
-void ALD45Character::SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent)
+void fun::SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent)
 {
 	// set up gameplay key bindings
 	check(PlayerInputComponent);
@@ -138,7 +146,7 @@ void ALD45Character::SetupPlayerInputComponent(class UInputComponent* PlayerInpu
 	PlayerInputComponent->BindAxis("LookUpRate", this, &ALD45Character::LookUpAtRate);
 }
 
-void ALD45Character::OnFire()
+void fun::OnFire()
 {
 	// try and fire a projectile
 	if (ProjectileClass != NULL)
@@ -175,7 +183,7 @@ void ALD45Character::OnFire()
 	}
 
 	// try and play a firing animation if specified
-	if (FireAnimation != NULL)
+	/*if (FireAnimation != NULL)
 	{
 		// Get the animation object for the arms mesh
 		UAnimInstance* AnimInstance = Mesh1P->GetAnimInstance();
@@ -183,17 +191,17 @@ void ALD45Character::OnFire()
 		{
 			AnimInstance->Montage_Play(FireAnimation, 1.f);
 		}
-	}
+	}*/
 }
 
-void ALD45Character::OnResetVR()
+void fun::OnResetVR()
 {
 	UHeadMountedDisplayFunctionLibrary::ResetOrientationAndPosition();
 }
 
-void ALD45Character::BeginTouch(const ETouchIndex::Type FingerIndex, const FVector Location)
+void fun::BeginTouch(const ETouchIndex::Type FingerIndex, const FVector Location)
 {
-	if (TouchItem.bIsPressed == true)
+	/*if (TouchItem.bIsPressed == true)
 	{
 		return;
 	}
@@ -204,16 +212,16 @@ void ALD45Character::BeginTouch(const ETouchIndex::Type FingerIndex, const FVect
 	TouchItem.bIsPressed = true;
 	TouchItem.FingerIndex = FingerIndex;
 	TouchItem.Location = Location;
-	TouchItem.bMoved = false;
+	TouchItem.bMoved = false;*/
 }
 
-void ALD45Character::EndTouch(const ETouchIndex::Type FingerIndex, const FVector Location)
+void fun::EndTouch(const ETouchIndex::Type FingerIndex, const FVector Location)
 {
-	if (TouchItem.bIsPressed == false)
+	/*if (TouchItem.bIsPressed == false)
 	{
 		return;
 	}
-	TouchItem.bIsPressed = false;
+	TouchItem.bIsPressed = false;*/
 }
 
 //Commenting this section out to be consistent with FPS BP template.
@@ -254,7 +262,7 @@ void ALD45Character::EndTouch(const ETouchIndex::Type FingerIndex, const FVector
 //	}
 //}
 
-void ALD45Character::MoveForward(float Value)
+void fun::MoveForward(float Value)
 {
 	if (Value != 0.0f)
 	{
@@ -263,7 +271,7 @@ void ALD45Character::MoveForward(float Value)
 	}
 }
 
-void ALD45Character::MoveRight(float Value)
+void fun::MoveRight(float Value)
 {
 	if (Value != 0.0f)
 	{
@@ -272,19 +280,19 @@ void ALD45Character::MoveRight(float Value)
 	}
 }
 
-void ALD45Character::TurnAtRate(float Rate)
+void fun::TurnAtRate(float Rate)
 {
 	// calculate delta for this frame from the rate information
 	AddControllerYawInput(Rate * BaseTurnRate * GetWorld()->GetDeltaSeconds());
 }
 
-void ALD45Character::LookUpAtRate(float Rate)
+void fun::LookUpAtRate(float Rate)
 {
 	// calculate delta for this frame from the rate information
 	AddControllerPitchInput(Rate * BaseLookUpRate * GetWorld()->GetDeltaSeconds());
 }
 
-bool ALD45Character::EnableTouchscreenMovement(class UInputComponent* PlayerInputComponent)
+bool fun::EnableTouchscreenMovement(class UInputComponent* PlayerInputComponent)
 {
 	if (FPlatformMisc::SupportsTouchInput() || GetDefault<UInputSettings>()->bUseMouseForTouch)
 	{

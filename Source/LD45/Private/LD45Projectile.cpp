@@ -1,10 +1,14 @@
 // Copyright 1998-2019 Epic Games, Inc. All Rights Reserved.
 
 #include "LD45Projectile.h"
-#include "GameFramework/ProjectileMovementComponent.h"
-#include "Components/SphereComponent.h"
+#include "LD45Projectile.ac.h"
 
-ALD45Projectile::ALD45Projectile() 
+extends(AActor)
+
+prop(UProjectileMovementComponent* ProjectileMovement)
+prop(USphereComponent* CollisionComp)
+
+fun::ALD45Projectile()
 {
 	// Use a sphere as a simple collision representation
 	CollisionComp = CreateDefaultSubobject<USphereComponent>(TEXT("SphereComp"));
@@ -31,7 +35,7 @@ ALD45Projectile::ALD45Projectile()
 	InitialLifeSpan = 3.0f;
 }
 
-void ALD45Projectile::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
+void fun::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
 {
 	// Only add impulse and destroy projectile if we hit a physics
 	if ((OtherActor != NULL) && (OtherActor != this) && (OtherComp != NULL) && OtherComp->IsSimulatingPhysics())

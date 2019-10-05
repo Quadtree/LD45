@@ -1,11 +1,11 @@
 // Copyright 1998-2019 Epic Games, Inc. All Rights Reserved.
 
 #include "LD45GameMode.h"
-#include "LD45HUD.h"
-#include "LD45Character.h"
-#include "UObject/ConstructorHelpers.h"
+#include "LD45GameMode.ac.h"
 
-ALD45GameMode::ALD45GameMode()
+extends(AGameModeBase)
+
+fun::ALD45GameMode()
 	: Super()
 {
 	// set default pawn class to our Blueprinted character
