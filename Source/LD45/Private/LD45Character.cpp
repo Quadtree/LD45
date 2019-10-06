@@ -180,7 +180,7 @@ void fun::SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent)
 	PlayerInputComponent->BindAxis("EatBlueBerries", this, &ALD45Character::EatBlueBerriesAxis);
 
 	PlayerInputComponent->BindAction("BeginConstruction", IE_Pressed, this, &ALD45Character::BeginConstruction);
-	PlayerInputComponent->BindAction("CancelConstruction", IE_Pressed, this, &ALD45Character::BeginConstruction);
+	PlayerInputComponent->BindAction("CancelConstruction", IE_Pressed, this, &ALD45Character::CancelConstruction);
 
 	PlayerInputComponent->BindAction("LightObject", IE_Pressed, this, &ALD45Character::LightObject);
 
@@ -468,6 +468,8 @@ void fun::GainResources(TMap<EResourceType, float> resourcesToGain)
 
 void fun::BeginConstruction()
 {
+	if (HeldConstructible) return;
+
 	if (Resources.Contains(EResourceType::RT_Wood) && Resources[EResourceType::RT_Wood] >= ConstructionCost)
 	{
 		Resources[EResourceType::RT_Wood] -= ConstructionCost;
@@ -486,6 +488,8 @@ void fun::PlaceConstructible()
 
 void fun::CancelConstruction()
 {
+	if (!HeldConstructible) return;
+
 	HeldConstructible->Destroy();
 	HeldConstructible = nullptr;
 

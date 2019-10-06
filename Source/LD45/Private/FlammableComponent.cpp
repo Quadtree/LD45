@@ -19,10 +19,20 @@ fun::UFlammableComponent()
 	DamageRate = 0.5f;
 }
 
+float fun::GetMass()
+{
+	if (Cast<AConstructible>(GetOwner())) return 15;
+	if (Cast<ATree>(GetOwner())) return 50;
+	if (Cast<AStick>(GetOwner())) return 3;
+	if (Cast<ABush>(GetOwner())) return 10;
+	if (Cast<ALD45Character>(GetOwner())) return 25;
+	return 5;
+}
+
 /// Adds some heat, roughly in joules...
 void fun::AddHeat(float roughJoules, float max)
 {
-	checkf(GetMass() > 0, TEXT("%s cannot have zero mass"), *GetOwner()->GetName());
+	//checkf(GetMass() > 0, TEXT("%s cannot have zero mass"), *GetOwner()->GetName());
 
 	Temperature = FMath::Min(Temperature + roughJoules / GetMass(), max);
 }

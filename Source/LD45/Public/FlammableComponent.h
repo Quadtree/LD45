@@ -23,6 +23,9 @@ private:
 public:
 	UFlammableComponent();
 
+	UFUNCTION(BlueprintPure)
+	float GetMass();
+
 	UFUNCTION(BlueprintCallable)
 	void AddHeat(float roughJoules, float max);
 
@@ -33,9 +36,6 @@ public:
 
 	UFUNCTION(BlueprintSetter, BlueprintCallable)
 	void SetTemperature(float value);
-
-	UFUNCTION(BlueprintGetter, BlueprintPure)
-	float GetMass();
 
 	UFUNCTION(BlueprintSetter, BlueprintCallable)
 	void SetMass(float value);
