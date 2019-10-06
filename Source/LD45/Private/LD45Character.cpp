@@ -38,6 +38,8 @@ prop(float FoodConsumptionRate)
 prop(float FoodDamageRate)
 prop(float EmberLevel)
 
+prop(float MaxFood)
+
 blueprintEvent(OnDeath)
 
 blueprintEvent(CantConstruct)
@@ -512,7 +514,7 @@ void fun::EatResource(EResourceType resourceType, float deltaTime)
 	if (eaten <= 0.01) CantEat();
 
 	Resources[resourceType] -= eaten;
-	Food = FMath::Clamp(Food + eaten, 0.f, 100.f);
+	Food = FMath::Clamp(Food + eaten, 0.f, MaxFood);
 
 	if (auto gm = Cast<ALD45GameMode>(UGameplayStatics::GetGameMode(this)))
 	{

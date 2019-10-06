@@ -100,6 +100,9 @@ private:
 	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetEmberLevel, BlueprintSetter=SetEmberLevel)
 	float EmberLevel;
 
+	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetMaxFood, BlueprintSetter=SetMaxFood)
+	float MaxFood;
+
 public:
 	UFUNCTION(BlueprintImplementableEvent)
 	void OnDeath();
@@ -374,5 +377,11 @@ public:
 
 	UFUNCTION(BlueprintSetter, BlueprintCallable)
 	void SetEmberLevel(float value);
+
+	UFUNCTION(BlueprintGetter, BlueprintPure)
+	float GetMaxFood();
+
+	UFUNCTION(BlueprintSetter, BlueprintCallable)
+	void SetMaxFood(float value);
 
 };
