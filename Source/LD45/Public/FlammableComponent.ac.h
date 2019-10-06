@@ -22,3 +22,4 @@ void UFlammableComponent::SetTemperature(float value){ Temperature = value; }
 #include "Engine/EngineTypes.h"
 #include "UObject/NoExportTypes.h"
 #include "CollisionShape.h"
+#include "Particles/ParticleSystemComponent.h"

@@ -39,8 +39,17 @@ void fun::TickComponent(float deltaTime, enum ELevelTick TickType, FActorCompone
 {
 	Super::TickComponent(deltaTime, TickType, ThisTickFunction);
 
-	if (Temperature > 45)
+	bool isOnFire = false;
+
+	if (Temperature > 200)
 	{
+		// WE'RE ON FIRE
+		isOnFire = true;
+
+		GetOwner()->TakeDamage(5 * deltaTime, FDamageEvent(), nullptr, nullptr);
+
+		if (Temperature < 400) Temperature += 20 * deltaTime;
+
 		TArray<FOverlapResult> res;
 		if (GetWorld()->OverlapMultiByChannel(res, GetOwner()->GetActorLocation(), FQuat::Identity, ECollisionChannel::ECC_Visibility, FCollisionShape::MakeSphere(700)))
 		{
@@ -54,6 +63,14 @@ void fun::TickComponent(float deltaTime, enum ELevelTick TickType, FActorCompone
 					comp->AddHeat(Temperature / dist * deltaTime);
 				}
 			}
+		}
+	}
+
+	for (auto a : GetOwner()->GetComponentsByClass(UParticleSystemComponent::StaticClass()))
+	{
+		if (auto ps = Cast<UParticleSystemComponent>(a))
+		{
+			ps->SetEmitterEnable("Particle Emitter", isOnFire);
 		}
 	}
 }
