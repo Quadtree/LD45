@@ -7,6 +7,7 @@ im(AActor)
 
 prop(float Temperature)
 prop(float Mass)
+prop(float DamageRate)
 
 classMods(meta=(BlueprintSpawnableComponent))
 
@@ -15,14 +16,15 @@ fun::UFlammableComponent()
 	PrimaryComponentTick.bCanEverTick = true;
 	PrimaryComponentTick.TickInterval = 0.5f;
 	Temperature = 23;
+	DamageRate = 0.5f;
 }
 
 /// Adds some heat, roughly in joules...
-void fun::AddHeat(float roughJoules)
+void fun::AddHeat(float roughJoules, float max)
 {
 	checkf(GetMass() > 0, TEXT("%s cannot have zero mass"), *GetOwner()->GetName());
 
-	Temperature += roughJoules / GetMass();
+	Temperature = FMath::Min(Temperature + roughJoules / GetMass(), max);
 }
 
 /*float fu n::GetMass()
@@ -48,12 +50,12 @@ void fun::TickComponent(float deltaTime, enum ELevelTick TickType, FActorCompone
 
 	if (Temperature > 200)
 	{
-		UE_LOG(LogTemp, Display, TEXT("FIRE"));
+		//UE_LOG(LogTemp, Display, TEXT("FIRE"));
 
 		// WE'RE ON FIRE
 		isOnFire = true;
 
-		GetOwner()->TakeDamage(5 * deltaTime, FDamageEvent(), nullptr, nullptr);
+		GetOwner()->TakeDamage(DamageRate * deltaTime, FDamageEvent(), nullptr, nullptr);
 
 		if (Temperature < 400) Temperature += 20 * deltaTime;
 
@@ -67,13 +69,13 @@ void fun::TickComponent(float deltaTime, enum ELevelTick TickType, FActorCompone
 				if (auto comp = a.Actor->FindComponentByClass<UFlammableComponent>())
 				{
 					float dist = FMath::Max(FVector::Dist(a.Actor->GetActorLocation(), GetOwner()->GetActorLocation()), 1.f);
-					comp->AddHeat(Temperature / dist * deltaTime * 100);
+					comp->AddHeat(Temperature / dist * deltaTime * Mass, Temperature);
 				}
 			}
 		}
 	}
 
-	Temperature += (23 - Temperature) * deltaTime * 0.01f;
+	Temperature += (23 - Temperature) * deltaTime * 0.03f;
 
 	for (auto a : GetOwner()->GetComponentsByClass(UParticleSystemComponent::StaticClass()))
 	{

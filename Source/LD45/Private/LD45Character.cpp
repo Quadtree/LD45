@@ -25,6 +25,7 @@ prop(bool IsInteracting)
 prop(AConstructible* HeldConstructible)
 prop(TSubclassOf<AConstructible> ConstructibleType)
 prop(float ConstructionCost)
+prop(TSubclassOf<AStick> StickType)
 
 prop(float Food)
 prop(float Temperature)
@@ -170,6 +171,8 @@ void fun::SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent)
 	PlayerInputComponent->BindAction("CancelConstruction", IE_Pressed, this, &ALD45Character::BeginConstruction);
 
 	PlayerInputComponent->BindAction("LightObject", IE_Pressed, this, &ALD45Character::LightObject);
+
+	PlayerInputComponent->BindAction("DropStick", IE_Pressed, this, &ALD45Character::DropStick);
 }
 
 void fun::OnFire()
@@ -508,4 +511,17 @@ float fun::TakeDamage(float DamageAmount, struct FDamageEvent const& DamageEvent
 	if (Health <= 0) Destroy();
 
 	return Super::TakeDamage(DamageAmount, DamageEvent, EventInstigator, DamageCauser);
+}
+
+void fun::DropStick()
+{
+	FVector rayStart = FindComponentByClass<UCameraComponent>()->GetComponentLocation();
+	FRotator rayDir = FindComponentByClass<UCameraComponent>()->GetComponentRotation();
+
+	FHitResult res;
+
+	if (GetWorld()->LineTraceSingleByChannel(res, rayStart, rayStart + rayDir.RotateVector(FVector(500, 0, 0)), ECollisionChannel::ECC_Visibility))
+	{
+		GetWorld()->SpawnActor<AStick>(StickType, res.Location + FVector(0, 0, 70), FRotator::ZeroRotator);
+	}
 }

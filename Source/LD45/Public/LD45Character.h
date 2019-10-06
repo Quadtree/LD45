@@ -72,6 +72,9 @@ private:
 	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetConstructionCost, BlueprintSetter=SetConstructionCost)
 	float ConstructionCost;
 
+	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetStickType, BlueprintSetter=SetStickType)
+	TSubclassOf<AStick> StickType;
+
 	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetFood, BlueprintSetter=SetFood)
 	float Food;
 
@@ -166,6 +169,9 @@ public:
 	void LightObject();
 
 	float TakeDamage(float DamageAmount, struct FDamageEvent const& DamageEvent, class AController* EventInstigator, class AActor* DamageCauser) override;
+
+	UFUNCTION(BlueprintCallable)
+	void DropStick();
 
 	UFUNCTION(BlueprintGetter, BlueprintPure)
 	float GetBaseTurnRate();
@@ -280,6 +286,12 @@ public:
 
 	UFUNCTION(BlueprintSetter, BlueprintCallable)
 	void SetConstructionCost(float value);
+
+	UFUNCTION(BlueprintGetter, BlueprintPure)
+	TSubclassOf<AStick>  GetStickType();
+
+	UFUNCTION(BlueprintSetter, BlueprintCallable)
+	void SetStickType(TSubclassOf<AStick> value);
 
 	UFUNCTION(BlueprintGetter, BlueprintPure)
 	float GetFood();

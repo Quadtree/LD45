@@ -49,6 +49,8 @@ TSubclassOf<AConstructible> ALD45Character::GetConstructibleType(){ return Const
 void ALD45Character::SetConstructibleType(TSubclassOf<AConstructible> value){ ConstructibleType = value; }
 float ALD45Character::GetConstructionCost(){ return ConstructionCost; }
 void ALD45Character::SetConstructionCost(float value){ ConstructionCost = value; }
+TSubclassOf<AStick> ALD45Character::GetStickType(){ return StickType; }
+void ALD45Character::SetStickType(TSubclassOf<AStick> value){ StickType = value; }
 float ALD45Character::GetFood(){ return Food; }
 void ALD45Character::SetFood(float value){ Food = value; }
 float ALD45Character::GetTemperature(){ return Temperature; }
@@ -74,6 +76,7 @@ void ALD45Character::SetFoodDamageRate(float value){ FoodDamageRate = value; }
 #include "Sound/SoundBase.h"
 #include "Public/ResourceType.h"
 #include "Public/Constructible.h"
+#include "Public/Stick.h"
 #include "Public/LD45Character.h"
 #include "XRMotionControllerBase.h"
 #include "Engine/EngineTypes.h"

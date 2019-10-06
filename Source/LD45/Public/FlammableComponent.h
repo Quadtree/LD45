@@ -17,11 +17,14 @@ private:
 	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetMass, BlueprintSetter=SetMass)
 	float Mass;
 
+	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetDamageRate, BlueprintSetter=SetDamageRate)
+	float DamageRate;
+
 public:
 	UFlammableComponent();
 
 	UFUNCTION(BlueprintCallable)
-	void AddHeat(float roughJoules);
+	void AddHeat(float roughJoules, float max);
 
 	void TickComponent(float deltaTime, enum ELevelTick TickType, struct FActorComponentTickFunction* ThisTickFunction) override;
 
@@ -36,5 +39,11 @@ public:
 
 	UFUNCTION(BlueprintSetter, BlueprintCallable)
 	void SetMass(float value);
+
+	UFUNCTION(BlueprintGetter, BlueprintPure)
+	float GetDamageRate();
+
+	UFUNCTION(BlueprintSetter, BlueprintCallable)
+	void SetDamageRate(float value);
 
 };
