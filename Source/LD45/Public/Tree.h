@@ -21,6 +21,8 @@ public:
 
 	TMap<EResourceType, float> Harvest(float harvestSpeed);
 
+	float TakeDamage(float DamageAmount, struct FDamageEvent const& DamageEvent, class AController* EventInstigator, class AActor* DamageCauser) override;
+
 	UFUNCTION(BlueprintGetter, BlueprintPure)
 	class UStaticMeshComponent* GetStaticMesh();
 

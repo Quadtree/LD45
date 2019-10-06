@@ -24,5 +24,7 @@ void UFlammableComponent::SetMass(float value){ Mass = value; }
 #include "Engine/EngineBaseTypes.h"
 #include "Engine/EngineTypes.h"
 #include "UObject/NoExportTypes.h"
+#include "CollisionQueryParams.h"
 #include "CollisionShape.h"
+#include "Math/UnrealMathUtility.h"
 #include "Particles/ParticleSystemComponent.h"

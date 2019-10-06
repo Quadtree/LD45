@@ -165,6 +165,8 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void LightObject();
 
+	float TakeDamage(float DamageAmount, struct FDamageEvent const& DamageEvent, class AController* EventInstigator, class AActor* DamageCauser) override;
+
 	UFUNCTION(BlueprintGetter, BlueprintPure)
 	float GetBaseTurnRate();
 

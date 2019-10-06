@@ -4,7 +4,6 @@
 #include "Components/ActorComponent.h"
 #include "LD45.h"
 #include "Engine/EngineBaseTypes.h"
-#include "Engine/EngineTypes.h"
 #include "FlammableComponent.generated.h"
 
 UCLASS(meta=(BlueprintSpawnableComponent))

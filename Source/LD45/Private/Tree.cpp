@@ -25,3 +25,12 @@ mods(bare) TMap<EResourceType, float> fun::Harvest(float harvestSpeed)
 
 	return ret2;
 }
+
+float fun::TakeDamage(float DamageAmount, struct FDamageEvent const& DamageEvent, class AController* EventInstigator, AActor* DamageCauser)
+{
+	WoodLeft -= DamageAmount;
+
+	if (WoodLeft <= 0) Destroy();
+
+	return Super::TakeDamage(DamageAmount, DamageEvent, EventInstigator, DamageCauser);
+}

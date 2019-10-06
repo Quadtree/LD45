@@ -27,6 +27,9 @@ private:
 	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetBerryType, BlueprintSetter=SetBerryType)
 	EResourceType BerryType;
 
+	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetHealth, BlueprintSetter=SetHealth)
+	float Health;
+
 public:
 	UFUNCTION(BlueprintImplementableEvent)
 	void BerryColorChanged();
@@ -41,6 +44,8 @@ public:
 	void BeginPlay() override;
 
 	void Tick(float deltaTime) override;
+
+	float TakeDamage(float DamageAmount, struct FDamageEvent const& DamageEvent, class AController* EventInstigator, class AActor* DamageCauser) override;
 
 	UFUNCTION(BlueprintGetter, BlueprintPure)
 	class UStaticMeshComponent* GetStaticMesh();
@@ -71,5 +76,11 @@ public:
 
 	UFUNCTION(BlueprintSetter, BlueprintCallable)
 	void SetBerryType(EResourceType value);
+
+	UFUNCTION(BlueprintGetter, BlueprintPure)
+	float GetHealth();
+
+	UFUNCTION(BlueprintSetter, BlueprintCallable)
+	void SetHealth(float value);
 
 };

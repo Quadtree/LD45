@@ -21,3 +21,5 @@ void ATree::SetWoodLeft(float value){ WoodLeft = value; }
 #include "Public/Tree.h"
 #include "Public/ResourceType.h"
 #include "Math/UnrealMathUtility.h"
+#include "Engine/EngineTypes.h"
+#include "GameFramework/Controller.h"

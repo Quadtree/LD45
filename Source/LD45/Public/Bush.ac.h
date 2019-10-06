@@ -21,9 +21,13 @@ float ABush::GetFoodLeft(){ return FoodLeft; }
 void ABush::SetFoodLeft(float value){ FoodLeft = value; }
 EResourceType ABush::GetBerryType(){ return BerryType; }
 void ABush::SetBerryType(EResourceType value){ BerryType = value; }
+float ABush::GetHealth(){ return Health; }
+void ABush::SetHealth(float value){ Health = value; }
 
 #include "GameFramework/Actor.h"
 #include "Components/StaticMeshComponent.h"
 #include "Public/ResourceType.h"
 #include "Public/Bush.h"
 #include "Math/UnrealMathUtility.h"
+#include "Engine/EngineTypes.h"
+#include "GameFramework/Controller.h"

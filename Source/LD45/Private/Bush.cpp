@@ -8,6 +8,7 @@ prop(float MaxFood)
 prop(float FoodRegenRate)
 prop(float FoodLeft)
 prop(EResourceType BerryType)
+prop(float Health)
 
 blueprintEvent(BerryColorChanged);
 blueprintEvent(ConsiderBerryVisibility);
@@ -49,4 +50,13 @@ void fun::Tick(float deltaTime)
 	{
 		ConsiderBerryVisibility();
 	}
+}
+
+float fun::TakeDamage(float DamageAmount, struct FDamageEvent const& DamageEvent, class AController* EventInstigator, AActor* DamageCauser)
+{
+	Health -= DamageAmount;
+
+	if (Health <= 0) Destroy();
+
+	return Super::TakeDamage(DamageAmount, DamageEvent, EventInstigator, DamageCauser);
 }
