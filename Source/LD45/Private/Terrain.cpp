@@ -115,10 +115,30 @@ void fun::BeginPlay()
 						SetTileHeightAt(x, y, distToSide);
 					}
 					while (height > distToSide) {
+						
+						float pushDepth = FMath::FRandRange(1, 4);
+
+						for (int32 cx = x - 5; cx <= x + 5; ++cx)
+						{
+							for (int32 cy = y - 5; cy <= y + 5; ++cy)
+							{
+								float dist = FMath::Max(FVector2D::Distance(FVector2D(x, y), FVector2D(cx, cy)), 1.f);
+								SetTileHeightAt(cx, cy, GetTileHeightAt(cx, cy) - pushDepth / dist);
+							}
+						}
+
+						check(x >= 0);
+						check(x < 20000);
+						check(y >= 0);
+						check(y < 20000);
+
 						height = HeightMap[x][y];
+
+
+						/*height = HeightMap[x][y];
 						int32 cx = x + FMath::RandRange(-1, 1) * FMath::Square(FMath::RandRange(1, 4));
 						int32 cy = y + FMath::RandRange(-1, 1) * FMath::Square(FMath::RandRange(1, 4));
-						SetTileHeightAt(cx, cy, GetTileHeightAt(cx,cy) - FMath::FRandRange(0, 0.8f));
+						SetTileHeightAt(cx, cy, GetTileHeightAt(cx,cy) - FMath::FRandRange(0, 0.8f));*/
 					}
 				//}
 
