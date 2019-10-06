@@ -96,6 +96,9 @@ private:
 	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetFoodDamageRate, BlueprintSetter=SetFoodDamageRate)
 	float FoodDamageRate;
 
+	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetEmberLevel, BlueprintSetter=SetEmberLevel)
+	float EmberLevel;
+
 public:
 	ALD45Character();
 
@@ -337,5 +340,11 @@ public:
 
 	UFUNCTION(BlueprintSetter, BlueprintCallable)
 	void SetFoodDamageRate(float value);
+
+	UFUNCTION(BlueprintGetter, BlueprintPure)
+	float GetEmberLevel();
+
+	UFUNCTION(BlueprintSetter, BlueprintCallable)
+	void SetEmberLevel(float value);
 
 };

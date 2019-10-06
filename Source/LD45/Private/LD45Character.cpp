@@ -36,6 +36,7 @@ prop(TArray<EResourceType> ResourcesBeingEaten)
 
 prop(float FoodConsumptionRate)
 prop(float FoodDamageRate)
+prop(float EmberLevel)
 
 DEFINE_LOG_CATEGORY_STATIC(LogFPChar, Warning, All);
 
@@ -409,13 +410,23 @@ void fun::Interact(float deltaTime)
 
 		if (GetWorld()->LineTraceSingleByChannel(res, rayStart, rayStart + rayDir.RotateVector(FVector(500, 0, 0)), ECollisionChannel::ECC_Visibility))
 		{
-			if (auto a = Cast<ATree>(res.Actor))
+			if (res.Actor.IsValid())
 			{
-				GainResources(a->Harvest(10 * deltaTime));
-			}
-			else if (auto a = Cast<ABush>(res.Actor))
-			{
-				GainResources(a->Harvest(10 * deltaTime));
+				if (auto a = Cast<ATree>(res.Actor))
+				{
+					GainResources(a->Harvest(10 * deltaTime));
+				}
+				else if (auto a = Cast<ABush>(res.Actor))
+				{
+					GainResources(a->Harvest(10 * deltaTime));
+				}
+				else if (auto a = res.Actor->FindComponentByClass<UFlammableComponent>())
+				{
+					if (a->GetTemperature() > 300)
+					{
+						EmberLevel = 1.f;
+					}
+				}
 			}
 		}
 	}
@@ -498,6 +509,8 @@ void fun::EatBlueBerriesAxis(float axisValue)
 
 void fun::LightObject()
 {
+	if (EmberLevel <= 0.01f) return;
+
 	FVector rayStart = FindComponentByClass<UCameraComponent>()->GetComponentLocation();
 	FRotator rayDir = FindComponentByClass<UCameraComponent>()->GetComponentRotation();
 

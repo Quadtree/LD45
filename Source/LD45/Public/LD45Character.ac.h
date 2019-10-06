@@ -65,6 +65,8 @@ float ALD45Character::GetFoodConsumptionRate(){ return FoodConsumptionRate; }
 void ALD45Character::SetFoodConsumptionRate(float value){ FoodConsumptionRate = value; }
 float ALD45Character::GetFoodDamageRate(){ return FoodDamageRate; }
 void ALD45Character::SetFoodDamageRate(float value){ FoodDamageRate = value; }
+float ALD45Character::GetEmberLevel(){ return EmberLevel; }
+void ALD45Character::SetEmberLevel(float value){ EmberLevel = value; }
 
 #include "LD45.h"
 #include "GameFramework/Character.h"
