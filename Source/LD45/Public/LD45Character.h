@@ -100,6 +100,9 @@ private:
 	float EmberLevel;
 
 public:
+	UFUNCTION(BlueprintImplementableEvent)
+	void OnDeath();
+
 	ALD45Character();
 
 	void BeginPlay() override;

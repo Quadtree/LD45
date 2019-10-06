@@ -38,6 +38,8 @@ prop(float FoodConsumptionRate)
 prop(float FoodDamageRate)
 prop(float EmberLevel)
 
+blueprintEvent(OnDeath)
+
 DEFINE_LOG_CATEGORY_STATIC(LogFPChar, Warning, All);
 
 //////////////////////////////////////////////////////////////////////////
@@ -535,7 +537,11 @@ float fun::TakeDamage(float DamageAmount, struct FDamageEvent const& DamageEvent
 {
 	Health -= DamageAmount;
 
-	if (Health <= 0) Destroy();
+	if (Health <= 0)
+	{
+		OnDeath();
+		Destroy();
+	}
 
 	return Super::TakeDamage(DamageAmount, DamageEvent, EventInstigator, DamageCauser);
 }
