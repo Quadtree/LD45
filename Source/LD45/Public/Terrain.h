@@ -63,6 +63,9 @@ private:
 	FVector HighestPoint;
 
 public:
+	UFUNCTION(BlueprintImplementableEvent)
+	void ResucePlane();
+
 	ATerrain();
 
 	void BeginPlay() override;

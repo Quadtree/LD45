@@ -39,7 +39,7 @@ void fun::Tick(float deltaTime)
 		{
 			if (StormLevel < MaxStormLevel)
 			{
-				StormLevel = FMath::Clamp(StormLevel + deltaTime * MaxStormLevel / 30.f, 0.f, MaxStormLevel);
+				StormLevel = FMath::Clamp(StormLevel + deltaTime * MaxStormLevel / 7.f, 0.f, MaxStormLevel);
 			}
 			else
 			{
@@ -53,7 +53,7 @@ void fun::Tick(float deltaTime)
 		}
 	}
 
-	if (FMath::FRand() < StormOverallPower * deltaTime * 0.5f)
+	if (FMath::FRand() < StormOverallPower * deltaTime * 0.3f)
 	{
 		StartStorm(StormOverallPower * 5);
 	}

@@ -29,6 +29,8 @@ prop(float RescuePlaneCooldown)
 
 prop(FVector HighestPoint)
 
+blueprintEvent(ResucePlane)
+
 fun::ATerrain()
 {
 	TerrainCubes = CreateDefaultSubobject<UInstancedStaticMeshComponent>("Cubes");
@@ -43,7 +45,7 @@ void fun::BeginPlay()
 	Super::BeginPlay();
 	PrimaryActorTick.bCanEverTick = true;
 	LightningCooldown = 0;
-	RescuePlaneCooldown = 60 * 7;
+	RescuePlaneCooldown = 60 * 2;
 
 	for (int32 buildAttempt = 0; buildAttempt < 2000; ++buildAttempt)
 	{
@@ -250,6 +252,7 @@ void fun::Tick(float deltaTime)
 	{
 		GetWorld()->SpawnActor<AActor>(RescuePlaneType, FVector(0,0,50000), FRotator::ZeroRotator);
 		RescuePlaneCooldown = 120;
+		ResucePlane();
 	}
 	
 	LightningCooldown -= deltaTime;
