@@ -17,6 +17,8 @@ UStaticMeshComponent* AConstructible::GetStaticMesh(){ return StaticMesh; }
 void AConstructible::SetStaticMesh(UStaticMeshComponent* value){ StaticMesh = value; }
 USceneComponent* AConstructible::GetSceneComp(){ return SceneComp; }
 void AConstructible::SetSceneComp(USceneComponent* value){ SceneComp = value; }
+float AConstructible::GetHealth(){ return Health; }
+void AConstructible::SetHealth(float value){ Health = value; }
 
 #include "GameFramework/Actor.h"
 #include "Components/StaticMeshComponent.h"
@@ -24,3 +26,4 @@ void AConstructible::SetSceneComp(USceneComponent* value){ SceneComp = value; }
 #include "Public/Constructible.h"
 #include "Engine/EngineTypes.h"
 #include "UObject/NoExportTypes.h"
+#include "GameFramework/Controller.h"

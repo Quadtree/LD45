@@ -24,6 +24,9 @@ public:
 	UFlammableComponent();
 
 	UFUNCTION(BlueprintPure)
+	float GetHeatProduced();
+
+	UFUNCTION(BlueprintPure)
 	float GetMass();
 
 	UFUNCTION(BlueprintCallable)

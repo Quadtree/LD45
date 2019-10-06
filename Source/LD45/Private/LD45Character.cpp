@@ -464,6 +464,7 @@ void fun::Interact(float deltaTime)
 	{
 		if (DoConstructibleQuery(res))
 		{
+			Construct();
 			HeldConstructible->PlaceConstructible();
 			HeldConstructible = nullptr;
 		}

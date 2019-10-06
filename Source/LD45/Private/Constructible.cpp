@@ -7,6 +7,7 @@ prop(float WoodCost)
 
 prop(UStaticMeshComponent* StaticMesh)
 prop(USceneComponent* SceneComp)
+prop(float Health)
 
 blueprintEvent(BecomeSolid);
 
@@ -57,4 +58,13 @@ void fun::PlaceConstructible()
 		StaticMesh->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
 		BecomeSolid();
 	}
+}
+
+float fun::TakeDamage(float DamageAmount, struct FDamageEvent const& DamageEvent, class AController* EventInstigator, AActor* DamageCauser)
+{
+	Health -= DamageAmount;
+
+	if (Health <= 0) Destroy();
+
+	return Super::TakeDamage(DamageAmount, DamageEvent, EventInstigator, DamageCauser);
 }

@@ -18,6 +18,9 @@ private:
 	UPROPERTY(SaveGame, VisibleAnywhere, BlueprintGetter=GetSceneComp, BlueprintSetter=SetSceneComp)
 	class USceneComponent* SceneComp;
 
+	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetHealth, BlueprintSetter=SetHealth)
+	float Health;
+
 public:
 	UFUNCTION(BlueprintImplementableEvent)
 	void BecomeSolid();
@@ -30,6 +33,8 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void PlaceConstructible();
+
+	float TakeDamage(float DamageAmount, struct FDamageEvent const& DamageEvent, class AController* EventInstigator, class AActor* DamageCauser) override;
 
 	UFUNCTION(BlueprintGetter, BlueprintPure)
 	float GetWoodCost();
@@ -48,5 +53,11 @@ public:
 
 	UFUNCTION(BlueprintSetter, BlueprintCallable)
 	void SetSceneComp(class USceneComponent* value);
+
+	UFUNCTION(BlueprintGetter, BlueprintPure)
+	float GetHealth();
+
+	UFUNCTION(BlueprintSetter, BlueprintCallable)
+	void SetHealth(float value);
 
 };

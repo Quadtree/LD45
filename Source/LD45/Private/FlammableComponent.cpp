@@ -19,9 +19,19 @@ fun::UFlammableComponent()
 	DamageRate = 1.5f;
 }
 
+float fun::GetHeatProduced()
+{
+	if (Cast<AConstructible>(GetOwner())) return 50;
+	if (Cast<ATree>(GetOwner())) return 50;
+	if (Cast<AStick>(GetOwner())) return 7;
+	if (Cast<ABush>(GetOwner())) return 10;
+	if (Cast<ALD45Character>(GetOwner())) return 25;
+	return 5;
+}
+
 float fun::GetMass()
 {
-	if (Cast<AConstructible>(GetOwner())) return 15;
+	if (Cast<AConstructible>(GetOwner())) return 5;
 	if (Cast<ATree>(GetOwner())) return 50;
 	if (Cast<AStick>(GetOwner())) return 3;
 	if (Cast<ABush>(GetOwner())) return 10;
@@ -79,13 +89,13 @@ void fun::TickComponent(float deltaTime, enum ELevelTick TickType, FActorCompone
 				if (auto comp = a.Actor->FindComponentByClass<UFlammableComponent>())
 				{
 					float dist = FMath::Max(FVector::Dist(a.Actor->GetActorLocation(), GetOwner()->GetActorLocation()), 1.f);
-					comp->AddHeat(Temperature / dist * deltaTime * Mass, Temperature);
+					comp->AddHeat(Temperature / dist * deltaTime * GetHeatProduced(), Temperature);
 				}
 			}
 		}
 	}
 
-	Temperature += (23 - Temperature) * deltaTime * 0.03f;
+	Temperature += (23 - Temperature) * deltaTime * 0.04f;
 
 	for (auto a : GetOwner()->GetComponentsByClass(UParticleSystemComponent::StaticClass()))
 	{
