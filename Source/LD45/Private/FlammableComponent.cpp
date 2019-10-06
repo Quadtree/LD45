@@ -73,6 +73,8 @@ void fun::TickComponent(float deltaTime, enum ELevelTick TickType, FActorCompone
 		}
 	}
 
+	Temperature += (23 - Temperature) * deltaTime * 0.01f;
+
 	for (auto a : GetOwner()->GetComponentsByClass(UParticleSystemComponent::StaticClass()))
 	{
 		if (auto ps = Cast<UParticleSystemComponent>(a))
