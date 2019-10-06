@@ -13,7 +13,10 @@
 #define fun         UFlammableComponent
 float UFlammableComponent::GetTemperature(){ return Temperature; }
 void UFlammableComponent::SetTemperature(float value){ Temperature = value; }
+float UFlammableComponent::GetMass(){ return Mass; }
+void UFlammableComponent::SetMass(float value){ Mass = value; }
 
+#include "LD45.h"
 #include "Components/ActorComponent.h"
 #include "GameFramework/Actor.h"
 #include "Public/FlammableComponent.h"

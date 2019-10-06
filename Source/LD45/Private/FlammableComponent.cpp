@@ -6,6 +6,9 @@ extends(UActorComponent)
 im(AActor)
 
 prop(float Temperature)
+prop(float Mass)
+
+classMods(meta=(BlueprintSpawnableComponent))
 
 fun::UFlammableComponent()
 {
@@ -20,7 +23,7 @@ void fun::AddHeat(float roughJoules)
 	Temperature += roughJoules / GetMass();
 }
 
-float fun::GetMass()
+/*float fu n::GetMass()
 {
 	float mass = 0;
 
@@ -33,11 +36,13 @@ float fun::GetMass()
 	}
 
 	return mass;
-}
+}*/
 
 void fun::TickComponent(float deltaTime, enum ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(deltaTime, TickType, ThisTickFunction);
+
+	UE_LOG(LogTemp, Display, TEXT("FIRE"));
 
 	bool isOnFire = false;
 
