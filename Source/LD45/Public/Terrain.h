@@ -36,6 +36,9 @@ private:
 	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetBushActorType, BlueprintSetter=SetBushActorType)
 	TSubclassOf<ABush> BushActorType;
 
+	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetLightningBoltType, BlueprintSetter=SetLightningBoltType)
+	TSubclassOf<AActor> LightningBoltType;
+
 	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetTrees, BlueprintSetter=SetTrees)
 	int32 Trees;
 
@@ -45,11 +48,15 @@ private:
 	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetTreeLine, BlueprintSetter=SetTreeLine)
 	float TreeLine;
 
+	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetLightningCooldown, BlueprintSetter=SetLightningCooldown)
+	float LightningCooldown;
+
 public:
 	ATerrain();
 
-	UFUNCTION(BlueprintCallable)
-	void BeginPlay();
+	void BeginPlay() override;
+
+	void Tick(float deltaTime) override;
 
 	UFUNCTION(BlueprintCallable)
 	void SetTileHeightAt(int32 x, int32 y, float height);
@@ -109,6 +116,12 @@ public:
 	void SetBushActorType(TSubclassOf<ABush> value);
 
 	UFUNCTION(BlueprintGetter, BlueprintPure)
+	TSubclassOf<AActor>  GetLightningBoltType();
+
+	UFUNCTION(BlueprintSetter, BlueprintCallable)
+	void SetLightningBoltType(TSubclassOf<AActor> value);
+
+	UFUNCTION(BlueprintGetter, BlueprintPure)
 	int32 GetTrees();
 
 	UFUNCTION(BlueprintSetter, BlueprintCallable)
@@ -125,5 +138,11 @@ public:
 
 	UFUNCTION(BlueprintSetter, BlueprintCallable)
 	void SetTreeLine(float value);
+
+	UFUNCTION(BlueprintGetter, BlueprintPure)
+	float GetLightningCooldown();
+
+	UFUNCTION(BlueprintSetter, BlueprintCallable)
+	void SetLightningCooldown(float value);
 
 };

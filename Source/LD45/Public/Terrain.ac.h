@@ -25,12 +25,16 @@ TSubclassOf<AActor> ATerrain::GetTreeActorType(){ return TreeActorType; }
 void ATerrain::SetTreeActorType(TSubclassOf<AActor> value){ TreeActorType = value; }
 TSubclassOf<ABush> ATerrain::GetBushActorType(){ return BushActorType; }
 void ATerrain::SetBushActorType(TSubclassOf<ABush> value){ BushActorType = value; }
+TSubclassOf<AActor> ATerrain::GetLightningBoltType(){ return LightningBoltType; }
+void ATerrain::SetLightningBoltType(TSubclassOf<AActor> value){ LightningBoltType = value; }
 int32 ATerrain::GetTrees(){ return Trees; }
 void ATerrain::SetTrees(int32 value){ Trees = value; }
 int32 ATerrain::GetBushes(){ return Bushes; }
 void ATerrain::SetBushes(int32 value){ Bushes = value; }
 float ATerrain::GetTreeLine(){ return TreeLine; }
 void ATerrain::SetTreeLine(float value){ TreeLine = value; }
+float ATerrain::GetLightningCooldown(){ return LightningCooldown; }
+void ATerrain::SetLightningCooldown(float value){ LightningCooldown = value; }
 
 #include "LD45.h"
 #include "GameFramework/Actor.h"
@@ -46,3 +50,5 @@ void ATerrain::SetTreeLine(float value){ TreeLine = value; }
 #include "Engine/EngineTypes.h"
 #include "CollisionQueryParams.h"
 #include "Public/ResourceType.h"
+#include "Public/Tree.h"
+#include "Public/FlammableComponent.h"

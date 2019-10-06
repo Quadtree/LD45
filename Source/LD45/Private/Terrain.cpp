@@ -16,11 +16,14 @@ prop(bare private TArray<TArray<float>> Jaggedness)
 
 prop(TSubclassOf<AActor> TreeActorType)
 prop(TSubclassOf<ABush> BushActorType)
+prop(TSubclassOf<AActor> LightningBoltType)
 
 prop(int32 Trees)
 prop(int32 Bushes)
 
 prop(float TreeLine)
+
+prop(float LightningCooldown)
 
 fun::ATerrain()
 {
@@ -28,10 +31,15 @@ fun::ATerrain()
 	RootComponent = TerrainCubes;
 	HeightMultiplier = 30;
 	TileSize = 100;
+	PrimaryActorTick.bCanEverTick = true;
 }
 
 void fun::BeginPlay()
 {
+	Super::BeginPlay();
+	PrimaryActorTick.bCanEverTick = true;
+	LightningCooldown = 0;
+
 	for (int32 buildAttempt = 0; buildAttempt < 2000; ++buildAttempt)
 	{
 		Jaggedness.Empty();
@@ -190,6 +198,45 @@ void fun::BeginPlay()
 			}
 		}
 	}
+}
+
+void fun::Tick(float deltaTime)
+{
+	Super::Tick(deltaTime);
+	//UE_LOG(LogTemp, Display, TEXT("TICK"));
+
+	if (LightningCooldown <= 0)
+	{
+		int32 treesOnFire = 0;
+		AActor* randomTree = nullptr;
+		int32 n = 0;
+
+		for (TActorIterator<ATree> i(GetWorld()); i; ++i)
+		{
+			if (auto a = i->FindComponentByClass<UFlammableComponent>())
+			{
+				if (a->GetTemperature() > 200) treesOnFire++;
+			}
+
+			if (FMath::RandRange(0, n++) == 0)
+			{
+				randomTree = *i;
+			}
+		}
+
+		UE_LOG(LogTemp, Display, TEXT("Trees on fire %s"), *FString::FromInt(treesOnFire));
+
+		if (treesOnFire < 4 && randomTree)
+		{
+			UE_LOG(LogTemp, Display, TEXT("Lightning at %s"), *randomTree->GetName());
+			GetWorld()->SpawnActor<AActor>(LightningBoltType, randomTree->GetActorLocation() + FVector(0, 0, 12000), FRotator::ZeroRotator);
+			
+		}
+
+		LightningCooldown = 2;
+	}
+	
+	LightningCooldown -= deltaTime;
 }
 
 void fun::SetTileHeightAt(int32 x, int32 y, float height)

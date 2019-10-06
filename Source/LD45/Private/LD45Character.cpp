@@ -412,7 +412,14 @@ void fun::Interact(float deltaTime)
 		{
 			if (res.Actor.IsValid())
 			{
-				if (auto a = Cast<ATree>(res.Actor))
+				if (auto a = res.Actor->FindComponentByClass<UFlammableComponent>())
+				{
+					if (a->GetTemperature() > 300)
+					{
+						EmberLevel = 1.f;
+					}
+				}
+				else if (auto a = Cast<ATree>(res.Actor))
 				{
 					GainResources(a->Harvest(10 * deltaTime));
 				}
@@ -420,13 +427,7 @@ void fun::Interact(float deltaTime)
 				{
 					GainResources(a->Harvest(10 * deltaTime));
 				}
-				else if (auto a = res.Actor->FindComponentByClass<UFlammableComponent>())
-				{
-					if (a->GetTemperature() > 300)
-					{
-						EmberLevel = 1.f;
-					}
-				}
+				
 			}
 		}
 	}
