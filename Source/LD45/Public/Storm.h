@@ -2,6 +2,8 @@
 
 #include "EngineMinimal.h"
 #include "GameFramework/Actor.h"
+#include "UObject/NoExportTypes.h"
+#include "UObject/NoExportTypes.h"
 #include "LD45.h"
 #include "Storm.generated.h"
 
@@ -22,7 +24,18 @@ private:
 	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetStormLevelRising, BlueprintSetter=SetStormLevelRising)
 	bool StormLevelRising;
 
+	UPROPERTY(SaveGame, VisibleAnywhere, BlueprintGetter=GetRainParticleSystem, BlueprintSetter=SetRainParticleSystem)
+	class UParticleSystemComponent* RainParticleSystem;
+
+	UPROPERTY(SaveGame, VisibleAnywhere, BlueprintGetter=GetSceneComp, BlueprintSetter=SetSceneComp)
+	class USceneComponent* SceneComp;
+
+	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetStormVector, BlueprintSetter=SetStormVector)
+	FVector StormVector;
+
 public:
+	AStorm();
+
 	UFUNCTION(BlueprintCallable)
 	void StartStorm(float maxLevel);
 
@@ -51,5 +64,23 @@ public:
 
 	UFUNCTION(BlueprintSetter, BlueprintCallable)
 	void SetStormLevelRising(bool value);
+
+	UFUNCTION(BlueprintGetter, BlueprintPure)
+	class UParticleSystemComponent* GetRainParticleSystem();
+
+	UFUNCTION(BlueprintSetter, BlueprintCallable)
+	void SetRainParticleSystem(class UParticleSystemComponent* value);
+
+	UFUNCTION(BlueprintGetter, BlueprintPure)
+	class USceneComponent* GetSceneComp();
+
+	UFUNCTION(BlueprintSetter, BlueprintCallable)
+	void SetSceneComp(class USceneComponent* value);
+
+	UFUNCTION(BlueprintGetter, BlueprintPure)
+	FVector GetStormVector();
+
+	UFUNCTION(BlueprintSetter, BlueprintCallable)
+	void SetStormVector(FVector value);
 
 };
