@@ -25,6 +25,7 @@ If you have a fire burning at the highest point, and a plane is flying by, you a
 - Being rescued and winning
 - Sound effects
 - Music
+- Remove Z and X cheats
 
 # Complete Task List
 - Storms!

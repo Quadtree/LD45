@@ -419,7 +419,8 @@ void fun::Interact(float deltaTime)
 						EmberLevel = 1.f;
 					}
 				}
-				else if (auto a = Cast<ATree>(res.Actor))
+
+				if (auto a = Cast<ATree>(res.Actor))
 				{
 					GainResources(a->Harvest(10 * deltaTime));
 				}
