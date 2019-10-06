@@ -104,6 +104,18 @@ public:
 	UFUNCTION(BlueprintImplementableEvent)
 	void OnDeath();
 
+	UFUNCTION(BlueprintImplementableEvent)
+	void CantConstruct();
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void CantCreateStick();
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void CantCreateFire();
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void CantEat();
+
 	ALD45Character();
 
 	void BeginPlay() override;

@@ -40,6 +40,11 @@ prop(float EmberLevel)
 
 blueprintEvent(OnDeath)
 
+blueprintEvent(CantConstruct)
+blueprintEvent(CantCreateStick)
+blueprintEvent(CantCreateFire)
+blueprintEvent(CantEat)
+
 DEFINE_LOG_CATEGORY_STATIC(LogFPChar, Warning, All);
 
 //////////////////////////////////////////////////////////////////////////
@@ -461,6 +466,10 @@ void fun::BeginConstruction()
 		Resources[EResourceType::RT_Wood] -= ConstructionCost;
 		HeldConstructible = GetWorld()->SpawnActor<AConstructible>(ConstructibleType, FVector(0, 0, -40000), FRotator::ZeroRotator);
 	}
+	else
+	{
+		CantConstruct();
+	}
 }
 
 void fun::PlaceConstructible()
@@ -488,6 +497,8 @@ void fun::EatResource(EResourceType resourceType, float deltaTime)
 	if (!Resources.Contains(resourceType)) Resources.Add(resourceType, 0);
 
 	float eaten = FMath::Clamp(deltaTime * 10, 0.f, Resources[resourceType]);
+
+	if (eaten <= 0.01) CantEat();
 
 	Resources[resourceType] -= eaten;
 	Food = FMath::Clamp(Food + eaten, 0.f, 100.f);
@@ -526,7 +537,11 @@ void fun::EatBlueBerriesAxis(float axisValue)
 
 void fun::LightObject()
 {
-	if (EmberLevel <= 0.01f) return;
+	if (EmberLevel <= 0.01f)
+	{
+		CantCreateFire();
+		return;
+	}
 
 	FVector rayStart = FindComponentByClass<UCameraComponent>()->GetComponentLocation();
 	FRotator rayDir = FindComponentByClass<UCameraComponent>()->GetComponentRotation();
@@ -575,6 +590,10 @@ void fun::DropStick()
 		{
 			GetWorld()->SpawnActor<AStick>(StickType, res.Location + FVector(0, 0, 70), FRotator::ZeroRotator);
 		}
+	}
+	else
+	{
+		CantCreateStick();
 	}
 }
 
