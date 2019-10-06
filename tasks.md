@@ -23,10 +23,11 @@ If you have a fire burning at the highest point, and a plane is flying by, you a
 
 # Task List
 - Storm cools even when not in direct effect
-- Sound effects
 - Title screen
 - Victory screen
 - Defeat screen
+- Final HUD
+- Sound effects
 - Music
 - Remove Z and X cheats
 
