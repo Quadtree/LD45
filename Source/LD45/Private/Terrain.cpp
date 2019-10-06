@@ -25,6 +25,8 @@ prop(float TreeLine)
 
 prop(float LightningCooldown)
 
+prop(FVector HighestPoint)
+
 fun::ATerrain()
 {
 	TerrainCubes = CreateDefaultSubobject<UInstancedStaticMeshComponent>("Cubes");
@@ -147,6 +149,11 @@ void fun::BeginPlay()
 				if (FMath::RandRange(0, n++) == 0)
 				{
 					startPoint = trans.GetLocation() + 27;
+
+					if (startPoint.Z > HighestPoint.Z)
+					{
+						HighestPoint = startPoint;
+					}
 				}
 			}
 		}

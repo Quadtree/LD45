@@ -2,6 +2,8 @@
 
 #include "EngineMinimal.h"
 #include "GameFramework/Actor.h"
+#include "UObject/NoExportTypes.h"
+#include "UObject/NoExportTypes.h"
 #include "LD45.h"
 #include "Public/ResourceType.h"
 #include "Terrain.generated.h"
@@ -50,6 +52,9 @@ private:
 
 	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetLightningCooldown, BlueprintSetter=SetLightningCooldown)
 	float LightningCooldown;
+
+	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetHighestPoint, BlueprintSetter=SetHighestPoint)
+	FVector HighestPoint;
 
 public:
 	ATerrain();
@@ -144,5 +149,11 @@ public:
 
 	UFUNCTION(BlueprintSetter, BlueprintCallable)
 	void SetLightningCooldown(float value);
+
+	UFUNCTION(BlueprintGetter, BlueprintPure)
+	FVector GetHighestPoint();
+
+	UFUNCTION(BlueprintSetter, BlueprintCallable)
+	void SetHighestPoint(FVector value);
 
 };

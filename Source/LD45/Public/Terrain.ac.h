@@ -35,16 +35,18 @@ float ATerrain::GetTreeLine(){ return TreeLine; }
 void ATerrain::SetTreeLine(float value){ TreeLine = value; }
 float ATerrain::GetLightningCooldown(){ return LightningCooldown; }
 void ATerrain::SetLightningCooldown(float value){ LightningCooldown = value; }
+FVector ATerrain::GetHighestPoint(){ return HighestPoint; }
+void ATerrain::SetHighestPoint(FVector value){ HighestPoint = value; }
 
 #include "LD45.h"
 #include "GameFramework/Actor.h"
 #include "Components/InstancedStaticMeshComponent.h"
 #include "Templates/SubclassOf.h"
 #include "Public/Bush.h"
+#include "UObject/NoExportTypes.h"
 #include "Public/Terrain.h"
 #include "Math/UnrealMathUtility.h"
 #include "Containers/UnrealString.h"
-#include "UObject/NoExportTypes.h"
 #include "EngineUtils.h"
 #include "Public/LD45Character.h"
 #include "Engine/EngineTypes.h"
