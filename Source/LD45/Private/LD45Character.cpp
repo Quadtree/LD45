@@ -380,6 +380,17 @@ void fun::Tick(float deltaTime)
 		Health += Food * FoodDamageRate;
 		Food = 0;
 	}
+
+	if (GetActorLocation().Z < 50)
+	{
+		FindComponentByClass<UFlammableComponent>()->SetTemperature(FindComponentByClass<UFlammableComponent>()->GetTemperature() - 12 * deltaTime);
+	}
+
+	float curTemp = FindComponentByClass<UFlammableComponent>()->GetTemperature();
+
+	float tempDamageRate = FMath::Max(FMath::Abs(curTemp - 23) - 25, 0.f);
+
+	TakeDamage(tempDamageRate * deltaTime, FDamageEvent(), nullptr, nullptr);
 }
 
 void fun::InteractAxis(float amount)
