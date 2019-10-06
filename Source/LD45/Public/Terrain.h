@@ -41,6 +41,9 @@ private:
 	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetLightningBoltType, BlueprintSetter=SetLightningBoltType)
 	TSubclassOf<AActor> LightningBoltType;
 
+	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetRescuePlaneType, BlueprintSetter=SetRescuePlaneType)
+	TSubclassOf<AActor> RescuePlaneType;
+
 	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetTrees, BlueprintSetter=SetTrees)
 	int32 Trees;
 
@@ -52,6 +55,9 @@ private:
 
 	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetLightningCooldown, BlueprintSetter=SetLightningCooldown)
 	float LightningCooldown;
+
+	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetRescuePlaneCooldown, BlueprintSetter=SetRescuePlaneCooldown)
+	float RescuePlaneCooldown;
 
 	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetHighestPoint, BlueprintSetter=SetHighestPoint)
 	FVector HighestPoint;
@@ -127,6 +133,12 @@ public:
 	void SetLightningBoltType(TSubclassOf<AActor> value);
 
 	UFUNCTION(BlueprintGetter, BlueprintPure)
+	TSubclassOf<AActor>  GetRescuePlaneType();
+
+	UFUNCTION(BlueprintSetter, BlueprintCallable)
+	void SetRescuePlaneType(TSubclassOf<AActor> value);
+
+	UFUNCTION(BlueprintGetter, BlueprintPure)
 	int32 GetTrees();
 
 	UFUNCTION(BlueprintSetter, BlueprintCallable)
@@ -149,6 +161,12 @@ public:
 
 	UFUNCTION(BlueprintSetter, BlueprintCallable)
 	void SetLightningCooldown(float value);
+
+	UFUNCTION(BlueprintGetter, BlueprintPure)
+	float GetRescuePlaneCooldown();
+
+	UFUNCTION(BlueprintSetter, BlueprintCallable)
+	void SetRescuePlaneCooldown(float value);
 
 	UFUNCTION(BlueprintGetter, BlueprintPure)
 	FVector GetHighestPoint();

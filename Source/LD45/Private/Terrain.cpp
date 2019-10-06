@@ -17,6 +17,7 @@ prop(bare private TArray<TArray<float>> Jaggedness)
 prop(TSubclassOf<AActor> TreeActorType)
 prop(TSubclassOf<ABush> BushActorType)
 prop(TSubclassOf<AActor> LightningBoltType)
+prop(TSubclassOf<AActor> RescuePlaneType)
 
 prop(int32 Trees)
 prop(int32 Bushes)
@@ -24,6 +25,7 @@ prop(int32 Bushes)
 prop(float TreeLine)
 
 prop(float LightningCooldown)
+prop(float RescuePlaneCooldown)
 
 prop(FVector HighestPoint)
 
@@ -41,6 +43,7 @@ void fun::BeginPlay()
 	Super::BeginPlay();
 	PrimaryActorTick.bCanEverTick = true;
 	LightningCooldown = 0;
+	RescuePlaneCooldown = 60 * 7;
 
 	for (int32 buildAttempt = 0; buildAttempt < 2000; ++buildAttempt)
 	{
@@ -242,8 +245,15 @@ void fun::Tick(float deltaTime)
 
 		LightningCooldown = 2;
 	}
+
+	if (RescuePlaneCooldown <= 0)
+	{
+		GetWorld()->SpawnActor<AActor>(RescuePlaneType, FVector(0,0,50000), FRotator::ZeroRotator);
+		RescuePlaneCooldown = 120;
+	}
 	
 	LightningCooldown -= deltaTime;
+	RescuePlaneCooldown -= deltaTime;
 }
 
 void fun::SetTileHeightAt(int32 x, int32 y, float height)

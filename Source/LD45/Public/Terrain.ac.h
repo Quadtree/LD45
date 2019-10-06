@@ -27,6 +27,8 @@ TSubclassOf<ABush> ATerrain::GetBushActorType(){ return BushActorType; }
 void ATerrain::SetBushActorType(TSubclassOf<ABush> value){ BushActorType = value; }
 TSubclassOf<AActor> ATerrain::GetLightningBoltType(){ return LightningBoltType; }
 void ATerrain::SetLightningBoltType(TSubclassOf<AActor> value){ LightningBoltType = value; }
+TSubclassOf<AActor> ATerrain::GetRescuePlaneType(){ return RescuePlaneType; }
+void ATerrain::SetRescuePlaneType(TSubclassOf<AActor> value){ RescuePlaneType = value; }
 int32 ATerrain::GetTrees(){ return Trees; }
 void ATerrain::SetTrees(int32 value){ Trees = value; }
 int32 ATerrain::GetBushes(){ return Bushes; }
@@ -35,6 +37,8 @@ float ATerrain::GetTreeLine(){ return TreeLine; }
 void ATerrain::SetTreeLine(float value){ TreeLine = value; }
 float ATerrain::GetLightningCooldown(){ return LightningCooldown; }
 void ATerrain::SetLightningCooldown(float value){ LightningCooldown = value; }
+float ATerrain::GetRescuePlaneCooldown(){ return RescuePlaneCooldown; }
+void ATerrain::SetRescuePlaneCooldown(float value){ RescuePlaneCooldown = value; }
 FVector ATerrain::GetHighestPoint(){ return HighestPoint; }
 void ATerrain::SetHighestPoint(FVector value){ HighestPoint = value; }
 
