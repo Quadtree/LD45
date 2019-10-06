@@ -5,6 +5,7 @@
 #include "UObject/NoExportTypes.h"
 #include "UObject/NoExportTypes.h"
 #include "LD45.h"
+#include "Engine/EngineTypes.h"
 #include "Storm.generated.h"
 
 UCLASS()
@@ -40,6 +41,9 @@ public:
 	void StartStorm(float maxLevel);
 
 	void Tick(float deltaTime) override;
+
+	UFUNCTION(BlueprintCallable)
+	void PotentiallyChill(class AActor* actor, float deltaTime);
 
 	UFUNCTION(BlueprintGetter, BlueprintPure)
 	float GetStormLevel();

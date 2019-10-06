@@ -52,7 +52,7 @@ void fun::Tick(float deltaTime)
 		}
 	}
 
-	if (FMath::FRand() < StormOverallPower * deltaTime)
+	if (FMath::FRand() < StormOverallPower * deltaTime * 0.5f)
 	{
 		StartStorm(StormOverallPower * 5);
 	}
@@ -61,7 +61,39 @@ void fun::Tick(float deltaTime)
 
 	for (TActorIterator<ALD45Character> i(GetWorld()); i; ++i)
 	{
-		RainParticleSystem->SetWorldLocation(i->GetActorLocation() + StormVector * -1000);
-		UE_LOG(LogTemp, Display, TEXT("Loc set to %s"), *(i->GetActorLocation() + StormVector * -1000).ToString());
+		RainParticleSystem->SetWorldLocation(i->GetActorLocation() + StormVector * -3000);
+		RainParticleSystem->SetWorldRotation(StormVector.Rotation());
+
+		PotentiallyChill(*i, deltaTime);
+		//UE_LOG(LogTemp, Display, TEXT("Loc set to %s"), *(i->GetActorLocation() + StormVector * -1000).ToString());
+	}
+
+	if (StormOverallPower > 0.2f)
+	{
+		if (FMath::FRand() < StormOverallPower * deltaTime * 0.3f)
+		{
+			StormVector.X = FMath::FRandRange(-1, 1);
+			StormVector.Y = FMath::FRandRange(-1, 1);
+			StormVector.Z = FMath::FRandRange(-1, 0);
+			StormVector = StormVector.GetSafeNormal();
+
+			UE_LOG(LogTemp, Display, TEXT("Storm has sheared to %s"), *StormVector.ToString());
+		}
+	}
+}
+
+void fun::PotentiallyChill(AActor* actor, float deltaTime)
+{
+	if (auto tempComp = actor->FindComponentByClass<UFlammableComponent>())
+	{
+		FHitResult res;
+		FCollisionQueryParams params;
+		FCollisionObjectQueryParams op;
+		params.AddIgnoredActor(this);
+		params.AddIgnoredActor(actor);
+		if (!GetWorld()->LineTraceTestByChannel(actor->GetActorLocation() + StormVector * -2000, actor->GetActorLocation(), ECollisionChannel::ECC_Visibility, params))
+		{
+			tempComp->SetTemperature(tempComp->GetTemperature() - 3 * deltaTime * StormLevel);
+		}
 	}
 }

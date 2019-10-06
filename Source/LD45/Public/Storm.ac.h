@@ -37,3 +37,5 @@ void AStorm::SetStormVector(FVector value){ StormVector = value; }
 #include "Math/UnrealMathUtility.h"
 #include "EngineUtils.h"
 #include "Public/LD45Character.h"
+#include "Public/FlammableComponent.h"
+#include "CollisionQueryParams.h"
