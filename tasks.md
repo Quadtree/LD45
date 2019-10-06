@@ -23,6 +23,10 @@ If you have a fire burning at the highest point, and a plane is flying by, you a
 
 # Task List
 - Sound effects
+  - Storm sound
+  - Lightning sound
+  - Gathering sound
+  - Light sound
 - Music
 
 # Complete Task List

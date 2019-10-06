@@ -40,6 +40,11 @@ prop(float EmberLevel)
 
 prop(float MaxFood)
 
+prop(bool IsGathering)
+
+blueprintEvent(IgniteSomething)
+blueprintEvent(Construct)
+
 blueprintEvent(OnDeath)
 
 blueprintEvent(CantConstruct)
@@ -362,6 +367,8 @@ void fun::Tick(float deltaTime)
 {
 	Super::Tick(deltaTime);
 
+	IsGathering = false;
+
 	if (IsInteracting)
 	{
 		Interact(deltaTime);
@@ -439,10 +446,12 @@ void fun::Interact(float deltaTime)
 				if (auto a = Cast<ATree>(res.Actor))
 				{
 					GainResources(a->Harvest(35 * deltaTime));
+					IsGathering = true;
 				}
 				else if (auto a = Cast<ABush>(res.Actor))
 				{
 					GainResources(a->Harvest(10 * deltaTime));
+					IsGathering = true;
 				}
 				
 			}
@@ -556,6 +565,8 @@ void fun::LightObject()
 		return;
 	}
 
+	IgniteSomething();
+
 	FVector rayStart = FindComponentByClass<UCameraComponent>()->GetComponentLocation();
 	FRotator rayDir = FindComponentByClass<UCameraComponent>()->GetComponentRotation();
 
@@ -589,6 +600,8 @@ float fun::TakeDamage(float DamageAmount, struct FDamageEvent const& DamageEvent
 
 void fun::DropStick()
 {
+	Construct();
+
 	if (!Resources.Contains(EResourceType::RT_Wood)) Resources.Add(EResourceType::RT_Wood);
 	if (Resources[EResourceType::RT_Wood] >= StickCost)
 	{

@@ -103,7 +103,16 @@ private:
 	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetMaxFood, BlueprintSetter=SetMaxFood)
 	float MaxFood;
 
+	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetIsGathering, BlueprintSetter=SetIsGathering)
+	bool IsGathering;
+
 public:
+	UFUNCTION(BlueprintImplementableEvent)
+	void IgniteSomething();
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void Construct();
+
 	UFUNCTION(BlueprintImplementableEvent)
 	void OnDeath();
 
@@ -383,5 +392,11 @@ public:
 
 	UFUNCTION(BlueprintSetter, BlueprintCallable)
 	void SetMaxFood(float value);
+
+	UFUNCTION(BlueprintGetter, BlueprintPure)
+	bool GetIsGathering();
+
+	UFUNCTION(BlueprintSetter, BlueprintCallable)
+	void SetIsGathering(bool value);
 
 };

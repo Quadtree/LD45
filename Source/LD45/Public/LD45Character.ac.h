@@ -69,6 +69,8 @@ float ALD45Character::GetEmberLevel(){ return EmberLevel; }
 void ALD45Character::SetEmberLevel(float value){ EmberLevel = value; }
 float ALD45Character::GetMaxFood(){ return MaxFood; }
 void ALD45Character::SetMaxFood(float value){ MaxFood = value; }
+bool ALD45Character::GetIsGathering(){ return IsGathering; }
+void ALD45Character::SetIsGathering(bool value){ IsGathering = value; }
 
 #include "LD45.h"
 #include "GameFramework/Character.h"
