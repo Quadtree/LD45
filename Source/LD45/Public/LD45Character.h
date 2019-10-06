@@ -116,6 +116,15 @@ public:
 	UFUNCTION(BlueprintImplementableEvent)
 	void CantEat();
 
+	UFUNCTION(BlueprintImplementableEvent)
+	void OnStarving();
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void OnOverheating();
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void OnFreezing();
+
 	ALD45Character();
 
 	void BeginPlay() override;

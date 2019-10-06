@@ -44,6 +44,9 @@ blueprintEvent(CantConstruct)
 blueprintEvent(CantCreateStick)
 blueprintEvent(CantCreateFire)
 blueprintEvent(CantEat)
+blueprintEvent(OnStarving)
+blueprintEvent(OnOverheating)
+blueprintEvent(OnFreezing)
 
 DEFINE_LOG_CATEGORY_STATIC(LogFPChar, Warning, All);
 
@@ -387,7 +390,11 @@ void fun::Tick(float deltaTime)
 	{
 		Health += Food * FoodDamageRate;
 		Food = 0;
+		OnStarving();
 	}
+
+	if (FindComponentByClass<UFlammableComponent>()->GetTemperature() >= 46) OnOverheating();
+	if (FindComponentByClass<UFlammableComponent>()->GetTemperature() <= 0) OnFreezing();
 
 	if (GetActorLocation().Z < 50)
 	{
