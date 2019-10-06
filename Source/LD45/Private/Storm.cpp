@@ -61,14 +61,14 @@ void fun::Tick(float deltaTime)
 
 	for (TActorIterator<ALD45Character> i(GetWorld()); i; ++i)
 	{
-		RainParticleSystem->SetWorldLocation(i->GetActorLocation() + StormVector * -3000);
+		RainParticleSystem->SetWorldLocation(i->GetActorLocation() + StormVector * -1000);
 		RainParticleSystem->SetWorldRotation(StormVector.Rotation());
 
 		PotentiallyChill(*i, deltaTime);
 		//UE_LOG(LogTemp, Display, TEXT("Loc set to %s"), *(i->GetActorLocation() + StormVector * -1000).ToString());
 	}
 
-	if (StormOverallPower > 0.2f)
+	if (StormOverallPower > 0.2f && true)
 	{
 		if (FMath::FRand() < StormOverallPower * deltaTime * 0.3f)
 		{
