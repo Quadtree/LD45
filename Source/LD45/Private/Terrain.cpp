@@ -342,22 +342,22 @@ void fun::BeginPlay()
 
 				TerrainCubes->AddInstance(trans);
 
-				if (FMath::RandRange(0, n++) == 0)
-				{
-					startPoint = trans.GetLocation() + 27;
+				//if (FMath::RandRange(0, n++) == 0)
+				//{
+					startPoint = trans.GetLocation() + FVector(0, 0, 200);
 
 					if (startPoint.Z > HighestPoint.Z)
 					{
 						HighestPoint = startPoint;
 					}
-				}
+				//}
 			}
 		}
 	}
 
 	for (TActorIterator<ALD45Character> i(GetWorld()); i; ++i)
 	{
-		i->SetActorLocation(startPoint);
+		i->SetActorLocation(HighestPoint);
 	}
 
 	for (int32 i=0;i<1000000 && Trees > 0;++i)

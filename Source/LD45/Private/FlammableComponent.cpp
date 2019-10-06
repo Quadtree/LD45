@@ -16,7 +16,7 @@ fun::UFlammableComponent()
 	PrimaryComponentTick.bCanEverTick = true;
 	PrimaryComponentTick.TickInterval = 0.5f;
 	Temperature = 23;
-	DamageRate = 0.5f;
+	DamageRate = 1.5f;
 }
 
 float fun::GetMass()
