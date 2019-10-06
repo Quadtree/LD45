@@ -49,7 +49,7 @@ void fun::Tick(float deltaTime)
 		}
 		else
 		{
-			StormLevel = FMath::Clamp(StormLevel - deltaTime * MaxStormLevel / 30.f, 0.f, MaxStormLevel);
+			StormLevel = FMath::Clamp(StormLevel - deltaTime * MaxStormLevel / 4.f, 0.f, MaxStormLevel);
 		}
 	}
 
