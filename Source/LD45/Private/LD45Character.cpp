@@ -438,7 +438,7 @@ void fun::Interact(float deltaTime)
 
 				if (auto a = Cast<ATree>(res.Actor))
 				{
-					GainResources(a->Harvest(10 * deltaTime));
+					GainResources(a->Harvest(35 * deltaTime));
 				}
 				else if (auto a = Cast<ABush>(res.Actor))
 				{
