@@ -25,6 +25,7 @@ prop(bool IsInteracting)
 prop(AConstructible* HeldConstructible)
 prop(TSubclassOf<AConstructible> ConstructibleType)
 prop(float ConstructionCost)
+prop(float StickCost)
 prop(TSubclassOf<AStick> StickType)
 
 prop(float Food)
@@ -515,13 +516,19 @@ float fun::TakeDamage(float DamageAmount, struct FDamageEvent const& DamageEvent
 
 void fun::DropStick()
 {
-	FVector rayStart = FindComponentByClass<UCameraComponent>()->GetComponentLocation();
-	FRotator rayDir = FindComponentByClass<UCameraComponent>()->GetComponentRotation();
-
-	FHitResult res;
-
-	if (GetWorld()->LineTraceSingleByChannel(res, rayStart, rayStart + rayDir.RotateVector(FVector(500, 0, 0)), ECollisionChannel::ECC_Visibility))
+	if (!Resources.Contains(EResourceType::RT_Wood)) Resources.Add(EResourceType::RT_Wood);
+	if (Resources[EResourceType::RT_Wood] >= StickCost)
 	{
-		GetWorld()->SpawnActor<AStick>(StickType, res.Location + FVector(0, 0, 70), FRotator::ZeroRotator);
+		Resources[EResourceType::RT_Wood] -= StickCost;
+
+		FVector rayStart = FindComponentByClass<UCameraComponent>()->GetComponentLocation();
+		FRotator rayDir = FindComponentByClass<UCameraComponent>()->GetComponentRotation();
+
+		FHitResult res;
+
+		if (GetWorld()->LineTraceSingleByChannel(res, rayStart, rayStart + rayDir.RotateVector(FVector(500, 0, 0)), ECollisionChannel::ECC_Visibility))
+		{
+			GetWorld()->SpawnActor<AStick>(StickType, res.Location + FVector(0, 0, 70), FRotator::ZeroRotator);
+		}
 	}
 }

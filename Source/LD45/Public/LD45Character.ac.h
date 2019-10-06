@@ -49,6 +49,8 @@ TSubclassOf<AConstructible> ALD45Character::GetConstructibleType(){ return Const
 void ALD45Character::SetConstructibleType(TSubclassOf<AConstructible> value){ ConstructibleType = value; }
 float ALD45Character::GetConstructionCost(){ return ConstructionCost; }
 void ALD45Character::SetConstructionCost(float value){ ConstructionCost = value; }
+float ALD45Character::GetStickCost(){ return StickCost; }
+void ALD45Character::SetStickCost(float value){ StickCost = value; }
 TSubclassOf<AStick> ALD45Character::GetStickType(){ return StickType; }
 void ALD45Character::SetStickType(TSubclassOf<AStick> value){ StickType = value; }
 float ALD45Character::GetFood(){ return Food; }

@@ -72,6 +72,9 @@ private:
 	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetConstructionCost, BlueprintSetter=SetConstructionCost)
 	float ConstructionCost;
 
+	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetStickCost, BlueprintSetter=SetStickCost)
+	float StickCost;
+
 	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetStickType, BlueprintSetter=SetStickType)
 	TSubclassOf<AStick> StickType;
 
@@ -286,6 +289,12 @@ public:
 
 	UFUNCTION(BlueprintSetter, BlueprintCallable)
 	void SetConstructionCost(float value);
+
+	UFUNCTION(BlueprintGetter, BlueprintPure)
+	float GetStickCost();
+
+	UFUNCTION(BlueprintSetter, BlueprintCallable)
+	void SetStickCost(float value);
 
 	UFUNCTION(BlueprintGetter, BlueprintPure)
 	TSubclassOf<AStick>  GetStickType();
