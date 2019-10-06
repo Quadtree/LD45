@@ -168,6 +168,8 @@ void fun::SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent)
 
 	PlayerInputComponent->BindAction("BeginConstruction", IE_Pressed, this, &ALD45Character::BeginConstruction);
 	PlayerInputComponent->BindAction("CancelConstruction", IE_Pressed, this, &ALD45Character::BeginConstruction);
+
+	PlayerInputComponent->BindAction("LightObject", IE_Pressed, this, &ALD45Character::LightObject);
 }
 
 void fun::OnFire()
@@ -477,4 +479,24 @@ void fun::EatBlueBerriesAxis(float axisValue)
 {
 	if (axisValue > 0.1f && !ResourcesBeingEaten.Contains(EResourceType::RT_BlueBerries)) ResourcesBeingEaten.Add(EResourceType::RT_BlueBerries);
 	if (axisValue < 0.1f && ResourcesBeingEaten.Contains(EResourceType::RT_BlueBerries)) ResourcesBeingEaten.Remove(EResourceType::RT_BlueBerries);
+}
+
+void fun::LightObject()
+{
+	FVector rayStart = FindComponentByClass<UCameraComponent>()->GetComponentLocation();
+	FRotator rayDir = FindComponentByClass<UCameraComponent>()->GetComponentRotation();
+
+	FHitResult res;
+
+	if (GetWorld()->LineTraceSingleByChannel(res, rayStart, rayStart + rayDir.RotateVector(FVector(500, 0, 0)), ECollisionChannel::ECC_Visibility))
+	{
+		if (res.Actor.IsValid())
+		{
+			if (auto comp = res.Actor->FindComponentByClass<UFlammableComponent>())
+			{
+				comp->SetTemperature(500);
+				UE_LOG(LogTemp, Display, TEXT("Set %s on fire"), *res.Actor->GetName());
+			}
+		}
+	}
 }

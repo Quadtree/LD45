@@ -91,3 +91,4 @@ void ALD45Character::SetFoodDamageRate(float value){ FoodDamageRate = value; }
 #include "Public/Tree.h"
 #include "Public/Bush.h"
 #include "Containers/UnrealString.h"
+#include "Public/FlammableComponent.h"

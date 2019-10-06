@@ -162,6 +162,9 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void EatBlueBerriesAxis(float axisValue);
 
+	UFUNCTION(BlueprintCallable)
+	void LightObject();
+
 	UFUNCTION(BlueprintGetter, BlueprintPure)
 	float GetBaseTurnRate();
 
