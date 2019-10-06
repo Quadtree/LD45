@@ -433,6 +433,7 @@ void fun::Tick(float deltaTime)
 		{
 			UE_LOG(LogTemp, Display, TEXT("Lightning at %s"), *randomTree->GetName());
 			GetWorld()->SpawnActor<AActor>(LightningBoltType, randomTree->GetActorLocation() + FVector(0, 0, 12000), FRotator::ZeroRotator);
+			randomTree->FindComponentByClass<UFlammableComponent>()->SetTemperature(500);
 			
 		}
 
