@@ -51,6 +51,7 @@ void ATerrain::SetHighestPoint(FVector value){ HighestPoint = value; }
 #include "Public/Terrain.h"
 #include "Math/UnrealMathUtility.h"
 #include "Containers/UnrealString.h"
+#include "Containers/Set.h"
 #include "EngineUtils.h"
 #include "Public/LD45Character.h"
 #include "Engine/EngineTypes.h"

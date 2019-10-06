@@ -24,6 +24,8 @@ private:
 
 	TArray<TArray<float>> HeightMap;
 
+	TArray<TArray<int32>> DistToCenter;
+
 	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetHeightMultiplier, BlueprintSetter=SetHeightMultiplier)
 	float HeightMultiplier;
 

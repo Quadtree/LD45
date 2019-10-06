@@ -8,6 +8,7 @@ prop(int32 TileWidth)
 prop(int32 TileHeight)
 
 prop(bare private TArray<TArray<float>> HeightMap)
+prop(bare private TArray<TArray<int32>> DistToCenter)
 
 prop(float HeightMultiplier)
 prop(float TileSize)
@@ -131,6 +132,176 @@ void fun::BeginPlay()
 
 		if (aboveWaterTiles >= totalTiles / 2 && tooHighEdgeTiles < totalTiles / 10) break;
 	}
+
+	/*for (int32 buildAttempt = 0; buildAttempt < 2000; ++buildAttempt)
+	{
+
+
+		int32 highestX = 0;
+		int32 highestY = 0;
+		float highestLevel = 0;
+
+		Jaggedness.Empty();
+		for (int32 x = 0; x < 8; ++x)
+		{
+			Jaggedness.Add(TArray<float>());
+			for (int32 y = 0; y < 8; ++y)
+			{
+				Jaggedness[x].Add(FMath::Square(FMath::FRandRange(0, 5)) / FMath::Square(2));
+			}
+		}
+
+		HeightMap.Empty();
+		DistToCenter.Empty();
+		for (int32 x = 0; x < TileWidth; ++x)
+		{
+			HeightMap.Add(TArray<float>());
+			DistToCenter.Add(TArray<int32>());
+			for (int32 y = 0; y < TileHeight; ++y)
+			{
+				HeightMap[x].Add(0);
+				DistToCenter[x].Add(-1);
+			}
+		}
+
+		for (int32 squareSize = TileWidth - 1; squareSize > 1; squareSize /= 2)
+		{
+			for (int32 x = 0; x < TileWidth; x += squareSize)
+			{
+				for (int32 y = 0; y < TileHeight; y += squareSize)
+				{
+					SquareStep(x, y, x + squareSize, y + squareSize);
+				}
+			}
+			for (int32 x = 0; x < TileWidth; x += squareSize)
+			{
+				for (int32 y = 0; y < TileHeight; y += squareSize)
+				{
+					DiamondStep(x - squareSize / 2, y, x - squareSize / 2 + squareSize, y + squareSize);
+					DiamondStep(x + squareSize / 2, y, x + squareSize / 2 + squareSize, y + squareSize);
+					DiamondStep(x, y - squareSize / 2, x + squareSize, y - squareSize / 2 + squareSize);
+					DiamondStep(x, y + squareSize / 2, x + squareSize, y + squareSize / 2 + squareSize);
+				}
+			}
+		}
+
+		for (int32 x = 0; x < TileWidth; ++x)
+		{
+			for (int32 y = 0; y < TileHeight; ++y)
+			{
+				if (HeightMap[x][y] > highestLevel)
+				{
+					highestLevel = HeightMap[x][y];
+					highestX = x;
+					highestY = y;
+				}
+			}
+		}
+
+		TSet<FIntPoint> open;
+		TSet<FIntPoint> closed;
+		open.Add(FIntPoint(highestX, highestY));
+		DistToCenter[highestX][highestY] = 0;
+
+		TArray<FIntPoint> deltas;
+		deltas.Add(FIntPoint(-1, 0));
+		deltas.Add(FIntPoint(1, 0));
+		deltas.Add(FIntPoint(0, -1));
+		deltas.Add(FIntPoint(0, 1));
+
+		int32 maxDistToCenter = 0;
+
+		while (open.Num() > 0)
+		{
+			FIntPoint nxt = *open.CreateIterator();
+			open.Remove(nxt);
+			closed.Add(nxt);
+
+			for (auto delta : deltas)
+			{
+				FIntPoint np = nxt + delta;
+				if (closed.Contains(np) || open.Contains(np)) continue;
+				if (GetTileHeightAt(np.X, np.Y) > 0)
+				{
+					open.Add(np);
+					DistToCenter[np.X][np.Y] = DistToCenter[nxt.X][nxt.Y] + 1;
+					maxDistToCenter = FMath::Max(maxDistToCenter, DistToCenter[np.X][np.Y]);
+				}
+			}
+		}
+
+		UE_LOG(LogTemp, Display, TEXT("MaxDistToCenter=%s"), *FString::FromInt(maxDistToCenter));
+
+		bool approved = false;
+
+		for (int32 fixAttempt = 0; fixAttempt < 100; ++fixAttempt)
+		{
+			int32 aboveWaterTiles = 0;
+			int32 totalTiles = TileWidth * TileHeight;
+			int32 tooHighEdgeTiles = 0;
+
+			for (int32 x = 0; x < TileWidth; ++x)
+			{
+				for (int32 y = 0; y < TileHeight; ++y)
+				{
+					float height = HeightMap[x][y];
+
+					int32 distToSide = FMath::Min(
+						TileHeight - y,
+						FMath::Min3(
+							x,
+							y,
+							TileWidth - x
+						)) * 2;
+
+					if (height > distToSide) {
+						++tooHighEdgeTiles;
+						SetTileHeightAt(x, y, distToSide);
+					}
+
+					if (height >= 0) {
+						++aboveWaterTiles;
+					}
+				}
+			}
+
+			UE_LOG(LogTemp, Display, TEXT("aboveWaterTiles=%s totalTiles=%s tooHighEdgeTiles=%s"), *FString::FromInt(aboveWaterTiles), *FString::FromInt(totalTiles), *FString::FromInt(tooHighEdgeTiles));
+
+			if (aboveWaterTiles < totalTiles / 2)
+			{
+				// immediate reject. stop trying to fix
+				break;
+			}
+
+			if (tooHighEdgeTiles < totalTiles / 10)
+			{
+				// final approval. we're done
+				approved = true;
+				break;
+			}
+			else
+			{
+				// let's try to fix it...
+				--maxDistToCenter;
+				for (int32 cx = 0; cx < TileWidth; ++cx)
+				{
+					for (int32 cy = 0; cy < TileHeight; ++cy)
+					{
+						int32 distToEdge = (maxDistToCenter - DistToCenter[cx][cy]);
+						if (distToEdge < 30)
+						{
+							HeightMap[cx][cy] = HeightMap[cx][cy] - (30 - distToEdge) / 5.f;
+						}
+						if (DistToCenter[cx][cy] == -1) HeightMap[cx][cy] = -1;
+					}
+				}
+			}
+
+
+		}
+
+		if (approved) break;
+	}*/
 
 	FVector startPoint;
 	int32 n = 0;
