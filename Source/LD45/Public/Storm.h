@@ -45,6 +45,9 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void PotentiallyChill(class AActor* actor, float deltaTime);
 
+	UFUNCTION(BlueprintCallable)
+	void WindShear();
+
 	UFUNCTION(BlueprintGetter, BlueprintPure)
 	float GetStormLevel();
 

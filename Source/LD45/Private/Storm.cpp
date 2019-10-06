@@ -43,6 +43,7 @@ void fun::Tick(float deltaTime)
 			}
 			else
 			{
+				UE_LOG(LogTemp, Display, TEXT("Storm has reached max power"));
 				StormLevelRising = false;
 			}
 		}
@@ -59,9 +60,14 @@ void fun::Tick(float deltaTime)
 
 	RainParticleSystem->SetFloatParameter("StormLevel", StormLevel);
 
+	if (StormLevel > 0.01f)
+	{
+		RainParticleSystem->ActivateSystem();
+	}
+
 	for (TActorIterator<ALD45Character> i(GetWorld()); i; ++i)
 	{
-		RainParticleSystem->SetWorldLocation(i->GetActorLocation() + StormVector * -1000);
+		RainParticleSystem->SetWorldLocation(i->GetActorLocation() + StormVector * -2000);
 		RainParticleSystem->SetWorldRotation(StormVector.Rotation());
 
 		PotentiallyChill(*i, deltaTime);
@@ -75,12 +81,7 @@ void fun::Tick(float deltaTime)
 	{
 		if (FMath::FRand() < StormOverallPower * deltaTime * 0.3f)
 		{
-			StormVector.X = FMath::FRandRange(-1, 1);
-			StormVector.Y = FMath::FRandRange(-1, 1);
-			StormVector.Z = FMath::FRandRange(-1, 0);
-			StormVector = StormVector.GetSafeNormal();
-
-			UE_LOG(LogTemp, Display, TEXT("Storm has sheared to %s"), *StormVector.ToString());
+			WindShear();
 		}
 	}
 
@@ -102,4 +103,14 @@ void fun::PotentiallyChill(AActor* actor, float deltaTime)
 			tempComp->SetTemperature(tempComp->GetTemperature() - 3 * deltaTime * StormLevel);
 		}
 	}
+}
+
+void fun::WindShear()
+{
+	StormVector.X = FMath::FRandRange(-1, 1);
+	StormVector.Y = FMath::FRandRange(-1, 1);
+	StormVector.Z = FMath::FRandRange(-1, 0);
+	StormVector = StormVector.GetSafeNormal();
+
+	UE_LOG(LogTemp, Display, TEXT("Storm has sheared to %s"), *StormVector.ToString());
 }
