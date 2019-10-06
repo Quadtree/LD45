@@ -22,7 +22,6 @@ If nothing on the island is on fire, a random flammable object will be struck by
 If you have a fire burning at the highest point, and a plane is flying by, you are rescued and win.
 
 # Task List
-- Storm cools even when not in direct effect
 - Title screen
 - Victory screen
 - Defeat screen
@@ -32,6 +31,7 @@ If you have a fire burning at the highest point, and a plane is flying by, you a
 - Remove Z and X cheats
 
 # Complete Task List
+- Storm cools even when not in direct effect
 - Being rescued and winning
 - Storms!
 - Collecting embers

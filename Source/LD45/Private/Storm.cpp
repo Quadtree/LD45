@@ -66,6 +66,9 @@ void fun::Tick(float deltaTime)
 
 		PotentiallyChill(*i, deltaTime);
 		//UE_LOG(LogTemp, Display, TEXT("Loc set to %s"), *(i->GetActorLocation() + StormVector * -1000).ToString());
+
+		// even if the PC is out of LOS, still chill them a bit
+		i->FindComponentByClass<UFlammableComponent>()->SetTemperature(i->FindComponentByClass<UFlammableComponent>()->GetTemperature() - 0.5f * deltaTime * StormLevel);
 	}
 
 	if (StormOverallPower > 0.2f && true)
@@ -80,6 +83,9 @@ void fun::Tick(float deltaTime)
 			UE_LOG(LogTemp, Display, TEXT("Storm has sheared to %s"), *StormVector.ToString());
 		}
 	}
+
+	// currently it takes 15 minutes for the storm to pass each level
+	StormOverallPower += deltaTime / 60 / 15;
 }
 
 void fun::PotentiallyChill(AActor* actor, float deltaTime)

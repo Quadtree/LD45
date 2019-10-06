@@ -11,4 +11,7 @@ class LD45_API ALD45GameMode : public AGameModeBase
 public:
 	ALD45GameMode();
 
+	UFUNCTION(BlueprintPure)
+	static bool GetCheatsEnabled();
+
 };

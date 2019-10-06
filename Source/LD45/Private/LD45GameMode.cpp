@@ -15,3 +15,12 @@ fun::ALD45GameMode()
 	// use our custom HUD class
 	HUDClass = ALD45HUD::StaticClass();
 }
+
+mods(static) bool fun::GetCheatsEnabled()
+{
+#if UE_BUILD_SHIPPING
+	return false;
+#else
+	return true;
+#endif
+}
