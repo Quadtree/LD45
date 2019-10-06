@@ -450,8 +450,11 @@ void fun::Interact(float deltaTime)
 				}
 				else if (auto a = Cast<ABush>(res.Actor))
 				{
-					GainResources(a->Harvest(10 * deltaTime));
-					IsGathering = true;
+					if (a->GetFoodLeft() > 0)
+					{
+						GainResources(a->Harvest(10 * deltaTime));
+						IsGathering = true;
+					}
 				}
 				
 			}
