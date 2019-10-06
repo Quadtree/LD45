@@ -183,6 +183,9 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void DropStick();
 
+	UFUNCTION(BlueprintPure)
+	int32 GetCountLeft(FString type);
+
 	UFUNCTION(BlueprintGetter, BlueprintPure)
 	float GetBaseTurnRate();
 

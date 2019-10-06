@@ -577,3 +577,20 @@ void fun::DropStick()
 		}
 	}
 }
+
+int32 fun::GetCountLeft(FString type)
+{
+	if (!Resources.Contains(EResourceType::RT_Wood)) Resources.Add(EResourceType::RT_Wood, 0);
+	if (!Resources.Contains(EResourceType::RT_RedBerries)) Resources.Add(EResourceType::RT_RedBerries, 0);
+	if (!Resources.Contains(EResourceType::RT_GreenBerries)) Resources.Add(EResourceType::RT_GreenBerries, 0);
+	if (!Resources.Contains(EResourceType::RT_BlueBerries)) Resources.Add(EResourceType::RT_BlueBerries, 0);
+
+	if (type == "Construct") return Resources[EResourceType::RT_Wood] / ConstructionCost;
+	if (type == "Stick") return Resources[EResourceType::RT_Wood] / StickCost;
+	if (type == "Ember") return EmberLevel >= 0.01f;
+	if (type == "RedBerry") return Resources[EResourceType::RT_RedBerries];
+	if (type == "GreenBerry") return Resources[EResourceType::RT_GreenBerries];
+	if (type == "BlueBerry") return Resources[EResourceType::RT_BlueBerries];
+
+	return -1;
+}
