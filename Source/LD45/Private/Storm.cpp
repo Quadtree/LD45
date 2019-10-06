@@ -5,10 +5,13 @@ extends(AActor)
 
 prop(float StormLevel)
 prop(float MaxStormLevel)
+prop(float StormOverallPower)
 prop(bool StormLevelRising)
 
 void fun::StartStorm(float maxLevel)
 {
+	UE_LOG(LogTemp, Display, TEXT("Storm starting at power %s"), *FString::SanitizeFloat(maxLevel));
+
 	MaxStormLevel = maxLevel;
 	StormLevelRising = true;
 }
@@ -34,5 +37,10 @@ void fun::Tick(float deltaTime)
 		{
 			StormLevel = FMath::Clamp(StormLevel - deltaTime * MaxStormLevel / 30.f, 0.f, MaxStormLevel);
 		}
+	}
+
+	if (FMath::FRand() < StormOverallPower * deltaTime)
+	{
+		StartStorm(StormOverallPower * 5);
 	}
 }

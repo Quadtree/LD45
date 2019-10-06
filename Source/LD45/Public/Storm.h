@@ -2,6 +2,7 @@
 
 #include "EngineMinimal.h"
 #include "GameFramework/Actor.h"
+#include "LD45.h"
 #include "Storm.generated.h"
 
 UCLASS()
@@ -14,6 +15,9 @@ private:
 
 	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetMaxStormLevel, BlueprintSetter=SetMaxStormLevel)
 	float MaxStormLevel;
+
+	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetStormOverallPower, BlueprintSetter=SetStormOverallPower)
+	float StormOverallPower;
 
 	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetStormLevelRising, BlueprintSetter=SetStormLevelRising)
 	bool StormLevelRising;
@@ -35,6 +39,12 @@ public:
 
 	UFUNCTION(BlueprintSetter, BlueprintCallable)
 	void SetMaxStormLevel(float value);
+
+	UFUNCTION(BlueprintGetter, BlueprintPure)
+	float GetStormOverallPower();
+
+	UFUNCTION(BlueprintSetter, BlueprintCallable)
+	void SetStormOverallPower(float value);
 
 	UFUNCTION(BlueprintGetter, BlueprintPure)
 	bool GetStormLevelRising();
