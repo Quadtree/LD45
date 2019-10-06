@@ -491,6 +491,19 @@ void fun::EatResource(EResourceType resourceType, float deltaTime)
 
 	Resources[resourceType] -= eaten;
 	Food = FMath::Clamp(Food + eaten, 0.f, 100.f);
+
+	if (auto gm = Cast<ALD45GameMode>(UGameplayStatics::GetGameMode(this)))
+	{
+		auto fc = FindComponentByClass<UFlammableComponent>();
+
+		switch (gm->GetBerrySecondaryEffects()[resourceType])
+		{
+		case EBerrySecondaryEffect::BSE_GainHealth: Health = FMath::Clamp(Health + eaten * 3, 0.f, 100.f); break;
+		case EBerrySecondaryEffect::BSE_LoseHealth: Health = FMath::Clamp(Health - eaten * 3, 0.f, 100.f); break;
+		case EBerrySecondaryEffect::BSE_LoseTemperature: fc->SetTemperature(fc->GetTemperature() + eaten * 5); break;
+		case EBerrySecondaryEffect::BSE_GainTemperature: fc->SetTemperature(fc->GetTemperature() - eaten * 5); break;
+		}
+	}
 }
 
 void fun::EatRedBerriesAxis(float axisValue)

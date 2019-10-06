@@ -1,0 +1,3 @@
+
+#define enumValue(...)
+#define classMods(...)

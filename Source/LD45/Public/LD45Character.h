@@ -8,6 +8,7 @@
 #include "Public/ResourceType.h"
 #include "Engine/EngineTypes.h"
 #include "Engine/EngineBaseTypes.h"
+#include "Public/BerrySecondaryEffect.h"
 #include "LD45Character.generated.h"
 
 UCLASS()

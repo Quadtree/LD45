@@ -99,4 +99,6 @@ void ALD45Character::SetEmberLevel(float value){ EmberLevel = value; }
 #include "Public/Tree.h"
 #include "Public/Bush.h"
 #include "Containers/UnrealString.h"
+#include "Public/LD45GameMode.h"
+#include "Public/BerrySecondaryEffect.h"
 #include "GameFramework/Controller.h"

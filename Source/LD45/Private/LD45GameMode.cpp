@@ -5,6 +5,8 @@
 
 extends(AGameModeBase)
 
+prop(TMap<EResourceType, EBerrySecondaryEffect> BerrySecondaryEffects)
+
 fun::ALD45GameMode()
 	: Super()
 {
@@ -14,6 +16,24 @@ fun::ALD45GameMode()
 
 	// use our custom HUD class
 	HUDClass = ALD45HUD::StaticClass();
+}
+
+void fun::BeginPlay()
+{
+	Super::BeginPlay();
+
+	UE_LOG(LogTemp, Display, TEXT("GameMode BeginPlay()"));
+
+	TArray<EResourceType> berryTypes;
+	berryTypes.Add(EResourceType::RT_RedBerries);
+	berryTypes.Add(EResourceType::RT_GreenBerries);
+	berryTypes.Add(EResourceType::RT_BlueBerries);
+
+	for (auto bt : berryTypes)
+	{
+		BerrySecondaryEffects.Add(bt, ( EBerrySecondaryEffect) FMath::RandRange(0, (int32)EBerrySecondaryEffect::BSE_Max - 1));
+		UE_LOG(LogTemp, Display, TEXT("BerrySecondaryEffect %s=%s"), *FString::FromInt(( int32) bt), *FString::FromInt((int32)BerrySecondaryEffects[bt]));
+	}
 }
 
 mods(static) bool fun::GetCheatsEnabled()
